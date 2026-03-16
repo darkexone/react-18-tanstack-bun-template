@@ -1,3 +1,4 @@
+import { CssBaseline, createTheme, ThemeProvider } from "@mui/material";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
@@ -14,6 +15,18 @@ interface MyRouterContext {
 	queryClient: QueryClient;
 }
 
+const theme = createTheme({
+	palette: {
+		mode: "light",
+		primary: {
+			main: "#0ea5e9",
+		},
+		secondary: {
+			main: "#14b8a6",
+		},
+	},
+});
+
 export const Route = createRootRouteWithContext<MyRouterContext>()({
 	beforeLoad: async () => {
 		// Other redirect strategies are possible; see
@@ -27,27 +40,30 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootComponent() {
 	return (
-		<div className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
-			<ThemeInitializer />
-			<TanStackQueryProvider>
-				<Header />
-				<Outlet />
-				<Footer />
-				<TanStackDevtools
-					config={{
-						position: "bottom-right",
-					}}
-					plugins={[
-						{
-							name: "Tanstack Router",
-							render: <TanStackRouterDevtoolsPanel />,
-						},
-						StoreDevtools,
-						TanStackQueryDevtools,
-					]}
-				/>
-			</TanStackQueryProvider>
-		</div>
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			<div className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
+				<ThemeInitializer />
+				<TanStackQueryProvider>
+					<Header />
+					<Outlet />
+					<Footer />
+					<TanStackDevtools
+						config={{
+							position: "bottom-right",
+						}}
+						plugins={[
+							{
+								name: "Tanstack Router",
+								render: <TanStackRouterDevtoolsPanel />,
+							},
+							StoreDevtools,
+							TanStackQueryDevtools,
+						]}
+					/>
+				</TanStackQueryProvider>
+			</div>
+		</ThemeProvider>
 	);
 }
 

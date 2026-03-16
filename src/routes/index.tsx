@@ -1,15 +1,22 @@
+import {
+	Avatar,
+	Box,
+	Card,
+	CardContent,
+	CardHeader,
+	Checkbox,
+	Chip,
+	Container,
+	Divider,
+	FormControlLabel,
+	Paper,
+	Stack,
+	Tooltip,
+	Typography,
+} from "@mui/material";
 import { createFileRoute } from "@tanstack/react-router";
 import { allEducations, allJobs } from "content-collections";
 import { useMemo, useState } from "react";
-import { Badge } from "#/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "#/components/ui/card";
-import { Checkbox } from "#/components/ui/checkbox";
-import {
-	HoverCard,
-	HoverCardContent,
-	HoverCardTrigger,
-} from "#/components/ui/hover-card";
-import { Separator } from "#/components/ui/separator";
 
 export const Route = createFileRoute("/")({
 	component: App,
@@ -38,172 +45,170 @@ function App() {
 	}, [selectedTags]);
 
 	return (
-		<div className="min-h-screen bg-linear-to-b from-gray-50 to-gray-100">
-			<div className="flex">
-				{/* Sidebar with filters */}
-				<div className="w-72 min-h-screen bg-white border-r shadow-sm p-8 sticky top-0">
-					<h3 className="text-lg font-semibold mb-6 text-gray-900">
-						Skills & Technologies
-					</h3>
-					<div className="space-y-4">
+		<Box
+			sx={{
+				minHeight: "100vh",
+				background: "linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%)",
+			}}
+		>
+			<Box sx={{ display: "flex" }}>
+				<Paper
+					elevation={0}
+					square
+					sx={{
+						width: 288,
+						minHeight: "100vh",
+						position: "sticky",
+						top: 0,
+						p: 4,
+						borderRight: "1px solid",
+						borderColor: "divider",
+						backgroundColor: "background.paper",
+					}}
+				>
+					<Typography variant="h6" sx={{ mb: 3, fontWeight: 700 }}>
+						Skills and Technologies
+					</Typography>
+					<Stack spacing={1}>
 						{allTags.map((tag) => (
-							<div key={tag} className="flex items-center space-x-3 group">
-								<Checkbox
-									id={tag}
-									checked={selectedTags.includes(tag)}
-									onCheckedChange={(checked) => {
-										if (checked) {
-											setSelectedTags([...selectedTags, tag]);
-										} else {
-											setSelectedTags(selectedTags.filter((t) => t !== tag));
-										}
-									}}
-									className="data-[state=checked]:bg-blue-600"
-								/>
-								<label
-									htmlFor={tag}
-									className="text-sm font-medium leading-none text-gray-700 group-hover:text-gray-900 transition-colors cursor-pointer"
-								>
-									{tag}
-								</label>
-							</div>
+							<FormControlLabel
+								key={tag}
+								control={
+									<Checkbox
+										checked={selectedTags.includes(tag)}
+										onChange={(_, checked) => {
+											if (checked) {
+												setSelectedTags([...selectedTags, tag]);
+											} else {
+												setSelectedTags(selectedTags.filter((t) => t !== tag));
+											}
+										}}
+									/>
+								}
+								label={tag}
+							/>
 						))}
-					</div>
-				</div>
+					</Stack>
+				</Paper>
 
-				{/* Main content */}
-				<div className="flex-1 p-8 lg:p-12">
-					<div className="max-w-4xl mx-auto space-y-12">
-						<div className="text-center space-y-4">
-							<h1 className="text-5xl font-bold bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
+				<Container maxWidth="lg" sx={{ py: 5 }}>
+					<Stack spacing={6}>
+						<Box sx={{ textAlign: "center" }}>
+							<Typography variant="h2" sx={{ fontWeight: 800, mb: 1 }}>
 								My Resume
-							</h1>
-							<p className="text-gray-600 text-lg">
-								Professional Experience & Education
-							</p>
-							<Separator className="mt-8" />
-						</div>
+							</Typography>
+							<Typography color="text.secondary" sx={{ mb: 3 }}>
+								Professional Experience and Education
+							</Typography>
+							<Divider />
+						</Box>
 
-						{/* Career Summary */}
-						<Card className="border-0 shadow-lg bg-white/50 backdrop-blur-sm">
-							<CardHeader>
-								<CardTitle className="text-2xl text-gray-900">
-									Career Summary
-								</CardTitle>
-							</CardHeader>
+						<Card elevation={2}>
+							<CardHeader
+								title="Career Summary"
+								titleTypographyProps={{ variant: "h5" }}
+							/>
 							<CardContent>
-								<div className="flex items-center gap-8">
-									<p className="text-gray-700 flex-1 leading-relaxed">
+								<Stack
+									direction={{ xs: "column", md: "row" }}
+									spacing={4}
+									alignItems="center"
+								>
+									<Typography sx={{ flex: 1 }} color="text.secondary">
 										I am a passionate and driven professional seeking
 										opportunities that will leverage my extensive experience in
 										frontend development while providing continuous growth and
 										learning opportunities. My goal is to contribute to
 										innovative projects that challenge me to expand my skill set
 										and make meaningful impacts through technology.
-									</p>
-									<img
+									</Typography>
+									<Avatar
 										src="/headshot-on-white.jpg"
 										alt="Professional headshot"
-										className="w-44 h-52 rounded-2xl object-cover shadow-md transition-transform hover:scale-105"
+										variant="rounded"
+										sx={{ width: 176, height: 208, borderRadius: 3 }}
 									/>
-								</div>
+								</Stack>
 							</CardContent>
 						</Card>
 
-						{/* Work Experience */}
-						<section className="space-y-6">
-							<h2 className="text-3xl font-semibold text-gray-900">
+						<Box>
+							<Typography variant="h4" sx={{ mb: 3, fontWeight: 700 }}>
 								Work Experience
-							</h2>
-							<div className="space-y-6">
+							</Typography>
+							<Stack spacing={3}>
 								{filteredJobs.map((job) => (
-									<Card
-										key={job.jobTitle}
-										className="border-0 shadow-md hover:shadow-lg transition-shadow"
-									>
-										<CardHeader>
-											<div className="flex justify-between items-start">
-												<div className="space-y-2">
-													<CardTitle className="text-xl text-gray-900">
-														{job.jobTitle}
-													</CardTitle>
-													<p className="text-blue-600 font-medium">
-														{job.company} - {job.location}
-													</p>
-												</div>
-												<Badge variant="secondary" className="text-sm">
-													{job.startDate} - {job.endDate || "Present"}
-												</Badge>
-											</div>
-										</CardHeader>
+									<Card key={job.jobTitle} elevation={2}>
+										<CardHeader
+											title={job.jobTitle}
+											subheader={`${job.company} - ${job.location}`}
+											action={
+												<Chip
+													label={`${job.startDate} - ${job.endDate || "Present"}`}
+												/>
+											}
+										/>
 										<CardContent>
-											<p className="text-gray-700 mb-6 leading-relaxed">
+											<Typography color="text.secondary" sx={{ mb: 3 }}>
 												{job.summary}
-											</p>
-											<div className="flex flex-wrap gap-2">
+											</Typography>
+											<Stack
+												direction="row"
+												spacing={1}
+												flexWrap="wrap"
+												useFlexGap
+											>
 												{job.tags.map((tag) => (
-													<HoverCard key={tag}>
-														<HoverCardTrigger>
-															<Badge
-																variant="outline"
-																className="hover:bg-gray-100 transition-colors cursor-pointer"
-															>
-																{tag}
-															</Badge>
-														</HoverCardTrigger>
-														<HoverCardContent className="w-64">
-															<p className="text-sm text-gray-600">
-																Experience with {tag} in professional
-																development
-															</p>
-														</HoverCardContent>
-													</HoverCard>
+													<Tooltip
+														key={tag}
+														title={`Experience with ${tag} in professional development`}
+													>
+														<Chip variant="outlined" label={tag} />
+													</Tooltip>
 												))}
-											</div>
+											</Stack>
 											{job.content && (
-												<div className="mt-6 text-gray-700 text-sm leading-relaxed whitespace-pre-wrap">
+												<Typography
+													sx={{ mt: 3, whiteSpace: "pre-wrap" }}
+													color="text.secondary"
+												>
 													{job.content}
-												</div>
+												</Typography>
 											)}
 										</CardContent>
 									</Card>
 								))}
-							</div>
-						</section>
+							</Stack>
+						</Box>
 
-						{/* Education */}
-						<section className="space-y-6">
-							<h2 className="text-3xl font-semibold text-gray-900">
+						<Box>
+							<Typography variant="h4" sx={{ mb: 3, fontWeight: 700 }}>
 								Education
-							</h2>
-							<div className="space-y-6">
+							</Typography>
+							<Stack spacing={3}>
 								{allEducations.map((education) => (
-									<Card
-										key={education.school}
-										className="border-0 shadow-md hover:shadow-lg transition-shadow"
-									>
-										<CardHeader>
-											<CardTitle className="text-xl text-gray-900">
-												{education.school}
-											</CardTitle>
-										</CardHeader>
+									<Card key={education.school} elevation={2}>
+										<CardHeader title={education.school} />
 										<CardContent>
-											<p className="text-gray-700 leading-relaxed">
+											<Typography color="text.secondary">
 												{education.summary}
-											</p>
+											</Typography>
 											{education.content && (
-												<div className="mt-6 text-gray-700 text-sm leading-relaxed whitespace-pre-wrap">
+												<Typography
+													sx={{ mt: 3, whiteSpace: "pre-wrap" }}
+													color="text.secondary"
+												>
 													{education.content}
-												</div>
+												</Typography>
 											)}
 										</CardContent>
 									</Card>
 								))}
-							</div>
-						</section>
-					</div>
-				</div>
-			</div>
-		</div>
+							</Stack>
+						</Box>
+					</Stack>
+				</Container>
+			</Box>
+		</Box>
 	);
 }
