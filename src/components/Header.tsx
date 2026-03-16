@@ -1,7 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import BetterAuthHeader from "../integrations/better-auth/header-user.tsx";
 import ParaglideLocaleSwitcher from "./LocaleSwitcher.tsx";
-import ResumeAssistantButton from "./ResumeAssistantButton";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
@@ -14,7 +12,7 @@ export default function Header() {
 						className="inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm text-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2"
 					>
 						<span className="h-2 w-2 rounded-full bg-[linear-gradient(90deg,#56c6be,#7ed3bf)]" />
-						TanStack Start
+						TanStack Router
 					</Link>
 				</h2>
 
@@ -47,9 +45,7 @@ export default function Header() {
 							/>
 						</svg>
 					</a>
-					<BetterAuthHeader />
 					<ParaglideLocaleSwitcher />
-					<ResumeAssistantButton />
 
 					<ThemeToggle />
 				</div>
@@ -70,7 +66,7 @@ export default function Header() {
 						About
 					</Link>
 					<a
-						href="https://tanstack.com/start/latest/docs/framework/react/overview"
+						href="https://tanstack.com/router/latest/docs/framework/react/overview"
 						className="nav-link"
 						target="_blank"
 						rel="noreferrer"
@@ -87,12 +83,6 @@ export default function Header() {
 								className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
 							>
 								Store
-							</a>
-							<a
-								href="/demo/better-auth"
-								className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-							>
-								Better Auth
 							</a>
 							<a
 								href="/demo/table"

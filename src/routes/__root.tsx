@@ -1,10 +1,6 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
-import {
-	createRootRouteWithContext,
-	HeadContent,
-	Scripts,
-} from "@tanstack/react-router";
+import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { useEffect } from "react";
 import { getLocale } from "#/paraglide/runtime";
@@ -13,7 +9,6 @@ import Header from "../components/Header";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import TanStackQueryProvider from "../integrations/tanstack-query/root-provider";
 import StoreDevtools from "../lib/demo-store-devtools";
-import appCss from "../styles.css?url";
 
 interface MyRouterContext {
 	queryClient: QueryClient;
@@ -27,59 +22,32 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 			document.documentElement.setAttribute("lang", getLocale());
 		}
 	},
-
-	head: () => ({
-		meta: [
-			{
-				charSet: "utf-8",
-			},
-			{
-				name: "viewport",
-				content: "width=device-width, initial-scale=1",
-			},
-			{
-				title: "TanStack Start Starter",
-			},
-		],
-		links: [
-			{
-				rel: "stylesheet",
-				href: appCss,
-			},
-		],
-	}),
-	shellComponent: RootDocument,
+	component: RootComponent,
 });
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootComponent() {
 	return (
-		<html lang={getLocale()} suppressHydrationWarning>
-			<head>
-				<HeadContent />
-			</head>
-			<body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
-				<ThemeInitializer />
-				<TanStackQueryProvider>
-					<Header />
-					{children}
-					<Footer />
-					<TanStackDevtools
-						config={{
-							position: "bottom-right",
-						}}
-						plugins={[
-							{
-								name: "Tanstack Router",
-								render: <TanStackRouterDevtoolsPanel />,
-							},
-							StoreDevtools,
-							TanStackQueryDevtools,
-						]}
-					/>
-				</TanStackQueryProvider>
-				<Scripts />
-			</body>
-		</html>
+		<div className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
+			<ThemeInitializer />
+			<TanStackQueryProvider>
+				<Header />
+				<Outlet />
+				<Footer />
+				<TanStackDevtools
+					config={{
+						position: "bottom-right",
+					}}
+					plugins={[
+						{
+							name: "Tanstack Router",
+							render: <TanStackRouterDevtoolsPanel />,
+						},
+						StoreDevtools,
+						TanStackQueryDevtools,
+					]}
+				/>
+			</TanStackQueryProvider>
+		</div>
 	);
 }
 
