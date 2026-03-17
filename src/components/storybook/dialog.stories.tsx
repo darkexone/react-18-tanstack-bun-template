@@ -1,8 +1,8 @@
 import { Box, Stack, TextField, Typography } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Button } from "./button";
-import { Dialog } from "./dialog";
+import { Button } from "@/shared/ui/button";
+import { Dialog } from "@/shared/ui/dialog";
 
 const meta = {
 	title: "Form/Dialog",
