@@ -1,8 +1,8 @@
-export { m } from "#/paraglide/messages";
+export { m } from "~/paraglide/messages";
 export {
 	deLocalizeUrl,
 	getLocale,
 	locales,
 	localizeUrl,
 	setLocale,
-} from "#/paraglide/runtime";
+} from "~/paraglide/runtime";

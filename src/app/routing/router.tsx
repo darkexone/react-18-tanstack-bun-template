@@ -1,5 +1,5 @@
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
-import { routeTree } from "#/routeTree.gen";
+import { routeTree } from "~/routeTree.gen";
 import { deLocalizeUrl, localizeUrl } from "~/shared/i18n";
 import { getContext } from "~/shared/integrations/tanstack-query";
 

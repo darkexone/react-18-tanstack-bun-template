@@ -6,7 +6,6 @@
     "module": "ESNext",
     "baseUrl": ".",
     "paths": {
-      "#/*": ["./src/*"],
       "~/*": ["./src/*"],
       "~/app": ["./src/app/index.ts"],
       "~/pages": ["./src/pages/index.ts"],
