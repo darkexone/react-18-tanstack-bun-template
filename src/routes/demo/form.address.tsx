@@ -107,7 +107,7 @@ function AddressForm() {
 						</form.AppField>
 
 						<Grid container spacing={2}>
-							<Grid item xs={12} md={4}>
+							<Grid size={{ xs: 12, md: 4 }}>
 								<form.AppField
 									name="address.city"
 									validators={{
@@ -122,7 +122,7 @@ function AddressForm() {
 									{(field) => <field.TextField label="City" />}
 								</form.AppField>
 							</Grid>
-							<Grid item xs={12} md={4}>
+							<Grid size={{ xs: 12, md: 4 }}>
 								<form.AppField
 									name="address.state"
 									validators={{
@@ -137,7 +137,7 @@ function AddressForm() {
 									{(field) => <field.TextField label="State" />}
 								</form.AppField>
 							</Grid>
-							<Grid item xs={12} md={4}>
+							<Grid size={{ xs: 12, md: 4 }}>
 								<form.AppField
 									name="address.zipCode"
 									validators={{
