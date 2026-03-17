@@ -2,8 +2,8 @@ import {
 	FormControl,
 	FormControlLabel,
 	FormLabel,
-	Radio,
 	RadioGroup as MuiRadioGroup,
+	Radio,
 } from "@mui/material";
 import type React from "react";
 
@@ -32,7 +32,12 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
 	return (
 		<FormControl className={className}>
 			<FormLabel>{label}</FormLabel>
-			<MuiRadioGroup row name={name} value={value} onChange={(e) => onChange?.(e.target.value)}>
+			<MuiRadioGroup
+				row
+				name={name}
+				value={value}
+				onChange={(e) => onChange?.(e.target.value)}
+			>
 				{options.map((option) => (
 					<FormControlLabel
 						key={option.value}

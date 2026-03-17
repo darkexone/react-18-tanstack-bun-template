@@ -1,5 +1,3 @@
-import type { RankingInfo } from "@tanstack/match-sorter-utils";
-import { compareItems, rankItem } from "@tanstack/match-sorter-utils";
 import {
 	Box,
 	Button,
@@ -16,6 +14,8 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material";
+import type { RankingInfo } from "@tanstack/match-sorter-utils";
+import { compareItems, rankItem } from "@tanstack/match-sorter-utils";
 import { createFileRoute } from "@tanstack/react-router";
 import type {
 	Column,
@@ -153,7 +153,7 @@ function TableDemo() {
 	}, [table]);
 
 	return (
-		<Box sx={{ minHeight: "100vh", bgcolor: "grey.900", p: 3 }}>
+		<Box sx={{ minHeight: "100vh", p: 3 }}>
 			<Box>
 				<DebouncedInput
 					value={globalFilter ?? ""}
@@ -181,7 +181,9 @@ function TableDemo() {
 													<Box
 														onClick={header.column.getToggleSortingHandler()}
 														sx={{
-															cursor: header.column.getCanSort() ? "pointer" : "default",
+															cursor: header.column.getCanSort()
+																? "pointer"
+																: "default",
 															userSelect: "none",
 														}}
 													>
@@ -210,10 +212,7 @@ function TableDemo() {
 					<TableBody>
 						{table.getRowModel().rows.map((row) => {
 							return (
-								<TableRow
-									key={row.id}
-									hover
-								>
+								<TableRow key={row.id} hover>
 									{row.getVisibleCells().map((cell) => {
 										return (
 											<TableCell key={cell.id}>
@@ -264,22 +263,23 @@ function TableDemo() {
 				>
 					{">>"}
 				</Button>
-				<Typography color="grey.100">
-					Page <strong>
+				<Typography>
+					Page{" "}
+					<strong>
 						{table.getState().pagination.pageIndex + 1} of{" "}
 						{table.getPageCount()}
 					</strong>
 				</Typography>
 				<TextField
-						type="number"
-						defaultValue={table.getState().pagination.pageIndex + 1}
-						onChange={(e) => {
-							const page = e.target.value ? Number(e.target.value) - 1 : 0;
-							table.setPageIndex(page);
-						}}
-						size="small"
-						sx={{ width: 96 }}
-					/>
+					type="number"
+					defaultValue={table.getState().pagination.pageIndex + 1}
+					onChange={(e) => {
+						const page = e.target.value ? Number(e.target.value) - 1 : 0;
+						table.setPageIndex(page);
+					}}
+					size="small"
+					sx={{ width: 96 }}
+				/>
 				<Select
 					value={table.getState().pagination.pageSize}
 					onChange={(e) => {
@@ -294,35 +294,33 @@ function TableDemo() {
 					))}
 				</Select>
 			</Stack>
-			<Typography sx={{ mt: 2 }} color="grey.400">
+			<Typography sx={{ mt: 2 }}>
 				{table.getPrePaginationRowModel().rows.length} Rows
 			</Typography>
 			<Stack direction="row" spacing={1} sx={{ mt: 2 }}>
-				<Button
-					type="button"
-					onClick={() => rerender()}
-					variant="contained"
-				>
+				<Button type="button" onClick={() => rerender()} variant="contained">
 					Force Rerender
 				</Button>
-				<Button
-					type="button"
-					onClick={() => refreshData()}
-					variant="contained"
-				>
+				<Button type="button" onClick={() => refreshData()} variant="contained">
 					Refresh Data
 				</Button>
 			</Stack>
-			<Paper sx={{ mt: 2, p: 2, overflow: "auto", bgcolor: "grey.800", color: "grey.300" }}>
+			<Paper
+				sx={{
+					mt: 2,
+					p: 2,
+					overflow: "auto",
+				}}
+			>
 				<pre>
-				{JSON.stringify(
-					{
-						columnFilters: table.getState().columnFilters,
-						globalFilter: table.getState().globalFilter,
-					},
-					null,
-					2,
-				)}
+					{JSON.stringify(
+						{
+							columnFilters: table.getState().columnFilters,
+							globalFilter: table.getState().globalFilter,
+						},
+						null,
+						2,
+					)}
 				</pre>
 			</Paper>
 		</Box>

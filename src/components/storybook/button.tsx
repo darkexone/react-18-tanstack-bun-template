@@ -35,10 +35,10 @@ export const Button: React.FC<ButtonProps> = ({
 			sx={
 				size === "large"
 					? {
-						px: 3,
-						py: 1.2,
-						fontSize: "1rem",
-					}
+							px: 3,
+							py: 1.2,
+							fontSize: "1rem",
+						}
 					: undefined
 			}
 			className={className}

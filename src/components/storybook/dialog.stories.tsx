@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, Stack, TextField, Typography } from "@mui/material";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Button } from "./button";
 import { Dialog } from "./dialog";
@@ -58,8 +58,20 @@ export const Form: Story = {
 		children: (
 			<Box sx={{ minWidth: 320 }}>
 				<Stack spacing={2}>
-					<TextField id="storybook-email" type="email" label="Email" placeholder="you@example.com" size="small" />
-					<TextField id="storybook-password" type="password" label="Password" placeholder="••••••••" size="small" />
+					<TextField
+						id="storybook-email"
+						type="email"
+						label="Email"
+						placeholder="you@example.com"
+						size="small"
+					/>
+					<TextField
+						id="storybook-password"
+						type="password"
+						label="Password"
+						placeholder="••••••••"
+						size="small"
+					/>
 				</Stack>
 			</Box>
 		),

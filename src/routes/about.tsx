@@ -16,9 +16,9 @@ function About() {
 					A small starter with room to grow.
 				</Typography>
 				<Typography sx={{ maxWidth: 900 }} color="text.secondary">
-					TanStack Start gives you type-safe routing, server functions, and
-					modern SSR defaults. Use this as a clean foundation, then layer in
-					your own routes, styling, and add-ons.
+					TanStack Router with Vite gives you type-safe routing and a fast
+					development experience. Use this as a clean foundation, then layer in
+					your own routes, data fetching, and add-ons.
 				</Typography>
 			</Paper>
 		</Container>

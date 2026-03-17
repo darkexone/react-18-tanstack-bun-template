@@ -1,16 +1,16 @@
 import {
 	Box,
 	CssBaseline,
-	Typography,
 	createTheme,
 	ThemeProvider,
+	Typography,
 } from "@mui/material";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { useEffect } from "react";
-import { getLocale } from "#/paraglide/runtime";
+import { getLocale, locales, setLocale } from "#/paraglide/runtime";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
@@ -33,10 +33,24 @@ const theme = createTheme({
 	},
 });
 
+// Helper: Extract locale from pathname
+function extractLocaleFromPath(pathname: string): string | null {
+	for (const locale of locales) {
+		if (pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)) {
+			return locale;
+		}
+	}
+	return null;
+}
+
 export const Route = createRootRouteWithContext<MyRouterContext>()({
 	beforeLoad: async () => {
-		// Other redirect strategies are possible; see
-		// https://github.com/TanStack/router/tree/main/examples/react/i18n-paraglide#offline-redirect
+		// Extract locale from window.location (before rewrite transformations)
+		const localeFromUrl = extractLocaleFromPath(window.location.pathname);
+		if (localeFromUrl) {
+			setLocale(localeFromUrl as (typeof locales)[number]);
+		}
+
 		if (typeof document !== "undefined") {
 			document.documentElement.setAttribute("lang", getLocale());
 		}

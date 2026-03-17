@@ -1,4 +1,4 @@
-import { Box, Paper, TextField, Typography } from "@mui/material";
+import { Box, Paper, Stack, TextField, Typography } from "@mui/material";
 import { createFileRoute } from "@tanstack/react-router";
 import { useStore } from "@tanstack/react-store";
 
@@ -58,8 +58,6 @@ function DemoStore() {
 				alignItems: "center",
 				justifyContent: "center",
 				p: 4,
-				backgroundImage:
-					"radial-gradient(50% 50% at 80% 80%, #f4a460 0%, #8b4513 70%, #1a0f0a 100%)",
 			}}
 		>
 			<Paper
@@ -68,7 +66,6 @@ function DemoStore() {
 					width: "100%",
 					maxWidth: 760,
 					p: 4,
-					backgroundColor: "rgba(255,255,255,0.1)",
 					backdropFilter: "blur(10px)",
 					borderRadius: 3,
 				}}
@@ -76,9 +73,11 @@ function DemoStore() {
 				<Typography variant="h4" fontWeight={700} sx={{ mb: 3 }}>
 					Store Example
 				</Typography>
-				<FirstName />
-				<LastName />
-				<FullName />
+				<Stack spacing={2}>
+					<FirstName />
+					<LastName />
+					<FullName />
+				</Stack>
 			</Paper>
 		</Box>
 	);

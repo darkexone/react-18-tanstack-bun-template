@@ -1,5 +1,5 @@
-import { EventClient } from "@tanstack/devtools-event-client";
 import { Box, Typography } from "@mui/material";
+import { EventClient } from "@tanstack/devtools-event-client";
 import { useEffect, useState } from "react";
 
 import { fullName, store } from "./demo-store";

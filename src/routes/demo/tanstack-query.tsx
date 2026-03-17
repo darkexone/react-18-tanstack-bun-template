@@ -26,8 +26,6 @@ function TanStackQueryDemo() {
 				alignItems: "center",
 				justifyContent: "center",
 				p: 2,
-				backgroundImage:
-					"radial-gradient(50% 50% at 95% 5%, #f4a460 0%, #8b4513 70%, #1a0f0a 100%)",
 			}}
 		>
 			<Paper
@@ -37,10 +35,8 @@ function TanStackQueryDemo() {
 					maxWidth: 900,
 					p: 4,
 					backdropFilter: "blur(10px)",
-					backgroundColor: "rgba(0,0,0,0.55)",
 					border: "8px solid rgba(0,0,0,0.1)",
 					borderRadius: 3,
-					color: "common.white",
 				}}
 			>
 				<Typography variant="h5" sx={{ mb: 2 }}>
@@ -54,7 +50,6 @@ function TanStackQueryDemo() {
 								mb: 1,
 								borderRadius: 2,
 								border: "1px solid rgba(255,255,255,0.2)",
-								backgroundColor: "rgba(255,255,255,0.08)",
 							}}
 						>
 							<Typography variant="h6">{todo.name}</Typography>

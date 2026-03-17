@@ -37,8 +37,6 @@ function SimpleForm() {
 				alignItems: "center",
 				justifyContent: "center",
 				p: 2,
-				backgroundImage:
-					"radial-gradient(50% 50% at 5% 40%, #add8e6 0%, #0000ff 70%, #00008b 100%)",
 			}}
 		>
 			<Paper
@@ -48,7 +46,6 @@ function SimpleForm() {
 					maxWidth: 900,
 					p: 4,
 					backdropFilter: "blur(10px)",
-					backgroundColor: "rgba(0,0,0,0.55)",
 					border: "8px solid rgba(0,0,0,0.1)",
 					borderRadius: 3,
 				}}

@@ -35,7 +35,9 @@ function StorybookDemo() {
 	};
 
 	return (
-		<Box sx={{ minHeight: "100vh", py: 8, px: 2, bgcolor: "background.default" }}>
+		<Box
+			sx={{ minHeight: "100vh", py: 8, px: 2, bgcolor: "background.default" }}
+		>
 			<Box sx={{ maxWidth: 800, mx: "auto" }}>
 				<Paper sx={{ p: 3 }}>
 					<Typography variant="h5" sx={{ mb: 3 }}>
@@ -62,12 +64,22 @@ function StorybookDemo() {
 								value={employmentType}
 								onChange={(event) => setEmploymentType(event.target.value)}
 							>
-								<FormControlLabel value="full-time" control={<Radio />} label="Full Time" />
-								<FormControlLabel value="part-time" control={<Radio />} label="Part Time" />
+								<FormControlLabel
+									value="full-time"
+									control={<Radio />}
+									label="Full Time"
+								/>
+								<FormControlLabel
+									value="part-time"
+									control={<Radio />}
+									label="Part Time"
+								/>
 							</RadioGroup>
 						</FormControl>
 						<Box>
-							<Typography gutterBottom>Coffee Cups Per Day: {coffeeCups}</Typography>
+							<Typography gutterBottom>
+								Coffee Cups Per Day: {coffeeCups}
+							</Typography>
 							<Slider
 								value={coffeeCups}
 								onChange={(_, value) => setCoffeeCups(Number(value))}
@@ -78,8 +90,12 @@ function StorybookDemo() {
 							/>
 						</Box>
 						<Stack direction="row" spacing={1.5} justifyContent="flex-end">
-							<Button variant="outlined" onClick={handleReset}>Reset</Button>
-							<Button variant="contained" type="submit" onClick={handleSubmit}>Submit</Button>
+							<Button variant="outlined" onClick={handleReset}>
+								Reset
+							</Button>
+							<Button variant="contained" type="submit" onClick={handleSubmit}>
+								Submit
+							</Button>
 						</Stack>
 					</Stack>
 				</Paper>

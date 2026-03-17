@@ -6,7 +6,10 @@ export default function Footer() {
 	const year = new Date().getFullYear();
 
 	return (
-		<Box component="footer" sx={{ mt: 10, borderTop: 1, borderColor: "divider", py: 6 }}>
+		<Box
+			component="footer"
+			sx={{ mt: 10, borderTop: 1, borderColor: "divider", py: 6 }}
+		>
 			<Container maxWidth="xl">
 				<Stack
 					direction={{ xs: "column", sm: "row" }}
@@ -15,13 +18,18 @@ export default function Footer() {
 					spacing={1.5}
 				>
 					<Typography variant="body2" color="text.secondary">
-					&copy; {year} Your name here. All rights reserved.
+						&copy; {year} Your name here. All rights reserved.
 					</Typography>
 					<Typography variant="overline" color="text.secondary">
-						Built with TanStack Start
+						Built with TanStack Router + MUI
 					</Typography>
 				</Stack>
-				<Stack direction="row" justifyContent="center" spacing={1.5} sx={{ mt: 2 }}>
+				<Stack
+					direction="row"
+					justifyContent="center"
+					spacing={1.5}
+					sx={{ mt: 2 }}
+				>
 					<IconButton
 						href="https://x.com/tan_stack"
 						target="_blank"
