@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn } from "storybook/test";
 
-import { Input } from "@/shared/ui/input";
+import { Input } from "~/shared/ui/input";
 
 const meta = {
 	title: "Form/Input",

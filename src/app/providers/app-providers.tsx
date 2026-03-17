@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import {
 	TanStackQueryDevtools,
 	TanStackQueryProvider,
-} from "@/shared/integrations/tanstack-query";
+} from "~/shared/integrations/tanstack-query";
 
 const theme = createTheme({
 	palette: {

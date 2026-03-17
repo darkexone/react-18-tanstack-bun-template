@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import type { QueryClient } from "@tanstack/react-query";
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
-import { AppShell } from "@/app/layout";
-import { AppProviders } from "@/app/providers";
-import { getLocale, locales, setLocale } from "@/shared/i18n";
+import { AppShell } from "~/app/layout";
+import { AppProviders } from "~/app/providers";
+import { getLocale, locales, setLocale } from "~/shared/i18n";
 
 interface MyRouterContext {
 	queryClient: QueryClient;

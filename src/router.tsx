@@ -1,1 +1,1 @@
-export { getRouter } from "@/app/routing/router";
+export { getRouter } from "~/app/routing";

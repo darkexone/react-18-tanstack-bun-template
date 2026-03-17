@@ -7,7 +7,7 @@ import {
 	validatePhone,
 	validateRequired,
 	validateZipCode,
-} from "@/features/address-form";
+} from "~/features/address-form";
 
 export default function DemoFormAddressPage() {
 	const form = useAddressForm({

@@ -33,8 +33,8 @@ import {
 	useReactTable,
 } from "@tanstack/react-table";
 import React from "react";
-import type { Person } from "@/entities/person";
-import { makeData } from "@/entities/person";
+import type { Person } from "~/entities/person";
+import { makeData } from "~/entities/person";
 
 declare module "@tanstack/react-table" {
 	interface FilterFns {

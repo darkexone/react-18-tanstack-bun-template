@@ -15,8 +15,8 @@ import {
 } from "@mui/material";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { LocaleSwitcher } from "@/features/i18n";
-import { ThemeToggle } from "@/features/theme";
+import { LocaleSwitcher } from "~/features/i18n";
+import { ThemeToggle } from "~/features/theme";
 
 export default function Header() {
 	const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
