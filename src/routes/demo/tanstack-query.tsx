@@ -35,7 +35,8 @@ function TanStackQueryDemo() {
 					maxWidth: 900,
 					p: 4,
 					backdropFilter: "blur(10px)",
-					border: "8px solid rgba(0,0,0,0.1)",
+					border: "8px solid",
+					borderColor: "divider",
 					borderRadius: 3,
 				}}
 			>
@@ -49,7 +50,8 @@ function TanStackQueryDemo() {
 							sx={{
 								mb: 1,
 								borderRadius: 2,
-								border: "1px solid rgba(255,255,255,0.2)",
+								border: 1,
+								borderColor: "divider",
 							}}
 						>
 							<Typography variant="h6">{todo.name}</Typography>

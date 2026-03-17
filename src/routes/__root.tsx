@@ -24,12 +24,6 @@ interface MyRouterContext {
 const theme = createTheme({
 	palette: {
 		mode: "light",
-		primary: {
-			main: "#0ea5e9",
-		},
-		secondary: {
-			main: "#14b8a6",
-		},
 	},
 });
 

@@ -48,7 +48,7 @@ function App() {
 		<Box
 			sx={{
 				minHeight: "100vh",
-				background: "linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%)",
+				bgcolor: "background.default",
 			}}
 		>
 			<Box sx={{ display: "flex" }}>

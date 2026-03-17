@@ -46,7 +46,8 @@ function SimpleForm() {
 					maxWidth: 900,
 					p: 4,
 					backdropFilter: "blur(10px)",
-					border: "8px solid rgba(0,0,0,0.1)",
+					border: "8px solid",
+					borderColor: "divider",
 					borderRadius: 3,
 				}}
 			>
