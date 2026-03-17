@@ -1,1 +1,1 @@
-// Entities layer public API
+export * from "./person";

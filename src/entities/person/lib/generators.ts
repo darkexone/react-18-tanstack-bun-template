@@ -1,15 +1,5 @@
 import { faker } from "@faker-js/faker";
-
-export type Person = {
-	id: number;
-	firstName: string;
-	lastName: string;
-	age: number;
-	visits: number;
-	progress: number;
-	status: "relationship" | "complicated" | "single";
-	subRows?: Person[];
-};
+import type { Person } from "../model";
 
 const range = (len: number) => {
 	const arr: number[] = [];

@@ -34,8 +34,8 @@ import {
 	useReactTable,
 } from "@tanstack/react-table";
 import React from "react";
-import type { Person } from "#/data/demo-table-data";
-import { makeData } from "#/data/demo-table-data";
+import { makeData } from "@/entities/person";
+import type { Person } from "@/entities/person";
 
 export const Route = createFileRoute("/demo/table")({
 	component: TableDemo,
