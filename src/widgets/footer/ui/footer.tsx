@@ -1,6 +1,4 @@
-import GitHubIcon from "@mui/icons-material/GitHub";
-import XIcon from "@mui/icons-material/X";
-import { Box, Container, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 
 export default function Footer() {
 	const year = new Date().getFullYear();
@@ -23,29 +21,6 @@ export default function Footer() {
 					<Typography variant="overline" color="text.secondary">
 						Built with TanStack Router + MUI
 					</Typography>
-				</Stack>
-				<Stack
-					direction="row"
-					justifyContent="center"
-					spacing={1.5}
-					sx={{ mt: 2 }}
-				>
-					<IconButton
-						href="https://x.com/tan_stack"
-						target="_blank"
-						rel="noreferrer"
-						aria-label="Follow TanStack on X"
-					>
-						<XIcon />
-					</IconButton>
-					<IconButton
-						href="https://github.com/TanStack"
-						target="_blank"
-						rel="noreferrer"
-						aria-label="Go to TanStack GitHub"
-					>
-						<GitHubIcon />
-					</IconButton>
 				</Stack>
 			</Container>
 		</Box>

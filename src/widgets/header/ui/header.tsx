@@ -1,7 +1,5 @@
-import GitHubIcon from "@mui/icons-material/GitHub";
 import LaunchIcon from "@mui/icons-material/Launch";
 import MenuIcon from "@mui/icons-material/Menu";
-import XIcon from "@mui/icons-material/X";
 import {
 	AppBar,
 	Button,
@@ -46,22 +44,6 @@ export default function Header() {
 						sx={{ width: "100%", justifyContent: "space-between" }}
 					>
 						<Stack direction="row" spacing={0.75} sx={{ ml: "auto" }}>
-							<IconButton
-								href="https://x.com/tan_stack"
-								target="_blank"
-								rel="noreferrer"
-								aria-label="Follow TanStack on X"
-							>
-								<XIcon fontSize="small" />
-							</IconButton>
-							<IconButton
-								href="https://github.com/TanStack"
-								target="_blank"
-								rel="noreferrer"
-								aria-label="Go to TanStack GitHub"
-							>
-								<GitHubIcon fontSize="small" />
-							</IconButton>
 							<LocaleSwitcher />
 							<ThemeToggle />
 						</Stack>
