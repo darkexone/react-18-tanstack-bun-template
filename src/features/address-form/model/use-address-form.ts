@@ -5,10 +5,10 @@ import {
 	SubscribeButton,
 	TextArea,
 	TextField,
-} from "../components/demo.FormComponents";
-import { fieldContext, formContext } from "./demo.form-context";
+} from "../ui/form-fields";
+import { fieldContext, formContext } from "./form-context";
 
-export const { useAppForm } = createFormHook({
+export const { useAppForm: useAddressForm } = createFormHook({
 	fieldComponents: {
 		TextField,
 		Select,
