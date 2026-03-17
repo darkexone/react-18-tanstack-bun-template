@@ -1,4 +1,4 @@
 export { bootstrapApp } from "./bootstrap";
-export * from "./layout";
-export * from "./providers";
-export * from "./routing";
+export { AppShell } from "./layout";
+export { AppProviders } from "./providers";
+export { getRouter } from "./routing";

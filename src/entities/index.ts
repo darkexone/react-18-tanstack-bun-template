@@ -1,1 +1,2 @@
-export * from "./person";
+export { makeData } from "./person";
+export type { Person } from "./person";

@@ -1,1 +1,5 @@
-export * from "./tanstack-query";
+export {
+	TanStackQueryDevtools,
+	TanStackQueryProvider,
+	getContext,
+} from "./tanstack-query";

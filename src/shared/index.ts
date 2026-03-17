@@ -1,6 +1,13 @@
-export * from "./config";
-export * from "./i18n";
-export * from "./integrations";
-export * from "./lib";
-export * from "./types";
-export * from "./ui";
+export {
+	deLocalizeUrl,
+	getLocale,
+	locales,
+	localizeUrl,
+	m,
+	setLocale,
+} from "./i18n";
+export {
+	TanStackQueryDevtools,
+	TanStackQueryProvider,
+	getContext,
+} from "./integrations";
