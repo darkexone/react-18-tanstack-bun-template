@@ -15,8 +15,8 @@ import {
 } from "@mui/material";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import ParaglideLocaleSwitcher from "./LocaleSwitcher.tsx";
-import ThemeToggle from "./ThemeToggle";
+import { LocaleSwitcher } from "@/features/i18n";
+import { ThemeToggle } from "@/features/theme";
 
 export default function Header() {
 	const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
@@ -62,7 +62,7 @@ export default function Header() {
 							>
 								<GitHubIcon fontSize="small" />
 							</IconButton>
-							<ParaglideLocaleSwitcher />
+							<LocaleSwitcher />
 							<ThemeToggle />
 						</Stack>
 
