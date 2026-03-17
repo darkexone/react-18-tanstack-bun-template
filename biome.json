@@ -99,7 +99,13 @@
 										"message": "Use subpublic API imports only (e.g. '~/shared/ui/button', not deeper internals)."
 									},
 									{
-										"group": ["~/app/**", "~/pages/**", "~/widgets/**", "~/features/**", "~/entities/**"],
+										"group": [
+											"~/app/**",
+											"~/pages/**",
+											"~/widgets/**",
+											"~/features/**",
+											"~/entities/**"
+										],
 										"message": "Shared and entities cannot depend on upper layers or entities by alias."
 									}
 								]
@@ -134,7 +140,12 @@
 										"message": "Use subpublic API imports only (e.g. '~/shared/ui/button', not deeper internals)."
 									},
 									{
-										"group": ["~/app/**", "~/pages/**", "~/widgets/**", "~/features/**"],
+										"group": [
+											"~/app/**",
+											"~/pages/**",
+											"~/widgets/**",
+											"~/features/**"
+										],
 										"message": "Features cannot import app/pages/widgets or other features by alias (no sideways imports)."
 									}
 								]

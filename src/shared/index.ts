@@ -7,7 +7,7 @@ export {
 	setLocale,
 } from "./i18n";
 export {
+	getContext,
 	TanStackQueryDevtools,
 	TanStackQueryProvider,
-	getContext,
 } from "./integrations";
