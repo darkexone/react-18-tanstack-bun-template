@@ -1,1 +1,2 @@
-// Widgets layer public API
+export * from "./footer";
+export * from "./header";

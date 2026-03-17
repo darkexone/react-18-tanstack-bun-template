@@ -11,12 +11,11 @@ import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { useEffect } from "react";
 import { getLocale, locales, setLocale } from "@/shared/i18n";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
 import {
 	TanStackQueryDevtools,
 	TanStackQueryProvider,
 } from "@/shared/integrations/tanstack-query";
+import { Footer, Header } from "@/widgets";
 
 interface MyRouterContext {
 	queryClient: QueryClient;
