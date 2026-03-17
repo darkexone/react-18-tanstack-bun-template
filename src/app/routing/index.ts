@@ -1,2 +1,1 @@
-// App routing public API
-export {};
+export { getRouter } from "./router";
