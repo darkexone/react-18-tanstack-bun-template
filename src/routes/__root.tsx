@@ -15,7 +15,6 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import TanStackQueryProvider from "../integrations/tanstack-query/root-provider";
-import StoreDevtools from "../lib/demo-store-devtools";
 
 interface MyRouterContext {
 	queryClient: QueryClient;
@@ -90,7 +89,6 @@ function RootComponent() {
 								name: "Tanstack Router",
 								render: <TanStackRouterDevtoolsPanel />,
 							},
-							StoreDevtools,
 							TanStackQueryDevtools,
 						]}
 					/>

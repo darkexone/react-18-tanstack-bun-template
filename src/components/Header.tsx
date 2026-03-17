@@ -22,12 +22,8 @@ export default function Header() {
 	const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
 
 	const demoLinks = [
-		{ label: "Store", href: "/demo/store" },
 		{ label: "TanStack Table", href: "/demo/table" },
-		{ label: "Simple Form", href: "/demo/form/simple" },
 		{ label: "Address Form", href: "/demo/form/address" },
-		{ label: "TanStack Query", href: "/demo/tanstack-query" },
-		{ label: "Storybook", href: "/demo/storybook" },
 	];
 
 	return (
