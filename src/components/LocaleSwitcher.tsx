@@ -4,8 +4,7 @@
 
 import { Button, ButtonGroup, Stack, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "@tanstack/react-router";
-import { m } from "#/paraglide/messages";
-import { getLocale, locales, setLocale } from "#/paraglide/runtime";
+import { getLocale, locales, m, setLocale } from "@/shared/i18n";
 
 export default function ParaglideLocaleSwitcher() {
 	const currentLocale = getLocale();

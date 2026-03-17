@@ -1,2 +1,1 @@
-// Shared integrations public API
-export {};
+export * from "./tanstack-query";

@@ -1,6 +1,6 @@
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
-import { deLocalizeUrl, localizeUrl } from "#/paraglide/runtime";
-import { getContext } from "./integrations/tanstack-query/root-provider";
+import { getContext } from "@/shared/integrations/tanstack-query";
+import { deLocalizeUrl, localizeUrl } from "@/shared/i18n";
 import { routeTree } from "./routeTree.gen";
 
 export function getRouter() {

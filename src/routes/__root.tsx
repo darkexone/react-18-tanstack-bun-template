@@ -10,11 +10,13 @@ import type { QueryClient } from "@tanstack/react-query";
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { useEffect } from "react";
-import { getLocale, locales, setLocale } from "#/paraglide/runtime";
+import { getLocale, locales, setLocale } from "@/shared/i18n";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
-import TanStackQueryProvider from "../integrations/tanstack-query/root-provider";
+import {
+	TanStackQueryDevtools,
+	TanStackQueryProvider,
+} from "@/shared/integrations/tanstack-query";
 
 interface MyRouterContext {
 	queryClient: QueryClient;
