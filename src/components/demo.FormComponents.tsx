@@ -1,3 +1,15 @@
+import {
+	Alert,
+	Box,
+	Button,
+	FormControl,
+	InputLabel,
+	MenuItem,
+	Select as MuiSelect,
+	TextField as MuiTextField,
+	Stack,
+	Typography,
+} from "@mui/material";
 import { useStore } from "@tanstack/react-form";
 
 import { useFieldContext, useFormContext } from "#/hooks/demo.form-context";
@@ -7,13 +19,9 @@ export function SubscribeButton({ label }: { label: string }) {
 	return (
 		<form.Subscribe selector={(state) => state.isSubmitting}>
 			{(isSubmitting) => (
-				<button
-					type="submit"
-					disabled={isSubmitting}
-					className="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors disabled:opacity-50"
-				>
+				<Button type="submit" disabled={isSubmitting} variant="contained">
 					{label}
-				</button>
+				</Button>
 			)}
 		</form.Subscribe>
 	);
@@ -25,16 +33,17 @@ function ErrorMessages({
 	errors: Array<string | { message: string }>;
 }) {
 	return (
-		<>
+		<Stack spacing={1} sx={{ mt: 1 }}>
 			{errors.map((error) => (
-				<div
+				<Alert
 					key={typeof error === "string" ? error : error.message}
-					className="text-red-500 mt-1 font-bold"
+					severity="error"
+					variant="outlined"
 				>
 					{typeof error === "string" ? error : error.message}
-				</div>
+				</Alert>
 			))}
-		</>
+		</Stack>
 	);
 }
 
@@ -49,19 +58,20 @@ export function TextField({
 	const errors = useStore(field.store, (state) => state.meta.errors);
 
 	return (
-		<div>
-			<label htmlFor={label} className="block font-bold mb-1 text-xl">
+		<Box>
+			<Typography variant="subtitle1" fontWeight={600} sx={{ mb: 1 }}>
 				{label}
-				<input
-					value={field.state.value}
-					placeholder={placeholder}
-					onBlur={field.handleBlur}
-					onChange={(e) => field.handleChange(e.target.value)}
-					className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-				/>
-			</label>
+			</Typography>
+			<MuiTextField
+				fullWidth
+				value={field.state.value}
+				placeholder={placeholder}
+				onBlur={field.handleBlur}
+				onChange={(e) => field.handleChange(e.target.value)}
+				size="small"
+			/>
 			{field.state.meta.isTouched && <ErrorMessages errors={errors} />}
-		</div>
+		</Box>
 	);
 }
 
@@ -76,19 +86,20 @@ export function TextArea({
 	const errors = useStore(field.store, (state) => state.meta.errors);
 
 	return (
-		<div>
-			<label htmlFor={label} className="block font-bold mb-1 text-xl">
+		<Box>
+			<Typography variant="subtitle1" fontWeight={600} sx={{ mb: 1 }}>
 				{label}
-				<textarea
-					value={field.state.value}
-					onBlur={field.handleBlur}
-					rows={rows}
-					onChange={(e) => field.handleChange(e.target.value)}
-					className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-				/>
-			</label>
+			</Typography>
+			<MuiTextField
+				fullWidth
+				multiline
+				rows={rows}
+				value={field.state.value}
+				onBlur={field.handleBlur}
+				onChange={(e) => field.handleChange(e.target.value)}
+			/>
 			{field.state.meta.isTouched && <ErrorMessages errors={errors} />}
-		</div>
+		</Box>
 	);
 }
 
@@ -104,24 +115,24 @@ export function Select({
 	const errors = useStore(field.store, (state) => state.meta.errors);
 
 	return (
-		<div>
-			<label htmlFor={label} className="block font-bold mb-1 text-xl">
-				{label}
-			</label>
-			<select
-				name={field.name}
-				value={field.state.value}
-				onBlur={field.handleBlur}
-				onChange={(e) => field.handleChange(e.target.value)}
-				className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-			>
-				{values.map((value) => (
-					<option key={value.value} value={value.value}>
-						{value.label}
-					</option>
-				))}
-			</select>
+		<Box>
+			<FormControl fullWidth size="small">
+				<InputLabel>{label}</InputLabel>
+				<MuiSelect
+					name={field.name}
+					value={field.state.value}
+					label={label}
+					onBlur={field.handleBlur}
+					onChange={(e) => field.handleChange(e.target.value)}
+				>
+					{values.map((value) => (
+						<MenuItem key={value.value} value={value.value}>
+							{value.label}
+						</MenuItem>
+					))}
+				</MuiSelect>
+			</FormControl>
 			{field.state.meta.isTouched && <ErrorMessages errors={errors} />}
-		</div>
+		</Box>
 	);
 }

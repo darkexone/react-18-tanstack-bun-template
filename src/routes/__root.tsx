@@ -1,4 +1,10 @@
-import { CssBaseline, createTheme, ThemeProvider } from "@mui/material";
+import {
+	Box,
+	CssBaseline,
+	Typography,
+	createTheme,
+	ThemeProvider,
+} from "@mui/material";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
@@ -36,13 +42,32 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 		}
 	},
 	component: RootComponent,
+	notFoundComponent: () => (
+		<Box
+			sx={{
+				display: "flex",
+				minHeight: "50vh",
+				alignItems: "center",
+				justifyContent: "center",
+				flexDirection: "column",
+				gap: 1,
+			}}
+		>
+			<Typography variant="h2" fontWeight={700}>
+				404
+			</Typography>
+			<Typography variant="h6" color="text.secondary">
+				Page not found
+			</Typography>
+		</Box>
+	),
 });
 
 function RootComponent() {
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
-			<div className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
+			<Box sx={{ overflowWrap: "anywhere" }}>
 				<ThemeInitializer />
 				<TanStackQueryProvider>
 					<Header />
@@ -62,7 +87,7 @@ function RootComponent() {
 						]}
 					/>
 				</TanStackQueryProvider>
-			</div>
+			</Box>
 		</ThemeProvider>
 	);
 }

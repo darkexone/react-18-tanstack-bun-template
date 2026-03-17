@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Box, Stack, TextField, Typography } from "@mui/material";
 
 import { Button } from "./button";
 import { Dialog } from "./dialog";
@@ -19,11 +20,11 @@ export const Default: Story = {
 	args: {
 		title: "User Profile",
 		children: (
-			<div className="space-y-4">
-				<p className="text-gray-700 dark:text-gray-300">
+			<Stack spacing={2}>
+				<Typography color="text.secondary">
 					This is a simple dialog component with a title and content area.
-				</p>
-			</div>
+				</Typography>
+			</Stack>
 		),
 	},
 };
@@ -32,21 +33,21 @@ export const WithFooter: Story = {
 	args: {
 		title: "Confirm Action",
 		children: (
-			<div className="space-y-4">
-				<p className="text-gray-700 dark:text-gray-300">
+			<Stack spacing={2}>
+				<Typography color="text.secondary">
 					Are you sure you want to proceed with this action?
-				</p>
-			</div>
+				</Typography>
+			</Stack>
 		),
 		footer: (
-			<div className="flex gap-3 justify-end">
+			<Stack direction="row" spacing={1.5} justifyContent="flex-end">
 				<Button variant="secondary" size="medium">
 					Cancel
 				</Button>
 				<Button variant="primary" size="medium">
 					Confirm
 				</Button>
-			</div>
+			</Stack>
 		),
 	},
 };
@@ -55,46 +56,22 @@ export const Form: Story = {
 	args: {
 		title: "Create Account",
 		children: (
-			<div className="space-y-4 min-w-80">
-				<div className="flex flex-col gap-2">
-					<label
-						htmlFor="storybook-email"
-						className="text-sm font-medium text-gray-700 dark:text-gray-200"
-					>
-						Email
-					</label>
-					<input
-						id="storybook-email"
-						type="email"
-						placeholder="you@example.com"
-						className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-					/>
-				</div>
-				<div className="flex flex-col gap-2">
-					<label
-						htmlFor="storybook-password"
-						className="text-sm font-medium text-gray-700 dark:text-gray-200"
-					>
-						Password
-					</label>
-					<input
-						id="storybook-password"
-						type="password"
-						placeholder="••••••••"
-						className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-					/>
-				</div>
-			</div>
+			<Box sx={{ minWidth: 320 }}>
+				<Stack spacing={2}>
+					<TextField id="storybook-email" type="email" label="Email" placeholder="you@example.com" size="small" />
+					<TextField id="storybook-password" type="password" label="Password" placeholder="••••••••" size="small" />
+				</Stack>
+			</Box>
 		),
 		footer: (
-			<div className="flex gap-3 justify-end">
+			<Stack direction="row" spacing={1.5} justifyContent="flex-end">
 				<Button variant="secondary" size="medium">
 					Cancel
 				</Button>
 				<Button variant="primary" size="medium">
 					Create Account
 				</Button>
-			</div>
+			</Stack>
 		),
 	},
 };

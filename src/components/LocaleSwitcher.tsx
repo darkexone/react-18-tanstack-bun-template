@@ -3,48 +3,27 @@
 // - Router example: https://github.com/TanStack/router/tree/main/examples/react/i18n-paraglide#switching-locale
 import { m } from "#/paraglide/messages";
 import { getLocale, locales, setLocale } from "#/paraglide/runtime";
+import { Button, ButtonGroup, Stack, Typography } from "@mui/material";
 
 export default function ParaglideLocaleSwitcher() {
 	const currentLocale = getLocale();
 
 	return (
-		<fieldset
-			style={{
-				display: "flex",
-				gap: "0.5rem",
-				alignItems: "center",
-				color: "inherit",
-				border: "none",
-				padding: 0,
-				margin: 0,
-			}}
-		>
-			<legend className="sr-only">{m.language_label()}</legend>
-			<span style={{ opacity: 0.85 }}>
+		<Stack direction="row" spacing={1} alignItems="center">
+			<Typography variant="body2" color="text.secondary">
 				{m.current_locale({ locale: currentLocale })}
-			</span>
-			<div style={{ display: "flex", gap: "0.25rem" }}>
+			</Typography>
+			<ButtonGroup size="small" aria-label={m.language_label()}>
 				{locales.map((locale) => (
-					<button
-						type="button"
+					<Button
 						key={locale}
 						onClick={() => setLocale(locale)}
-						aria-pressed={locale === currentLocale}
-						style={{
-							cursor: "pointer",
-							padding: "0.35rem 0.75rem",
-							borderRadius: "999px",
-							border: "1px solid #d1d5db",
-							background: locale === currentLocale ? "#0f172a" : "transparent",
-							color: locale === currentLocale ? "#f8fafc" : "inherit",
-							fontWeight: locale === currentLocale ? 700 : 500,
-							letterSpacing: "0.01em",
-						}}
+						variant={locale === currentLocale ? "contained" : "outlined"}
 					>
 						{locale.toUpperCase()}
-					</button>
+					</Button>
 				))}
-			</div>
-		</fieldset>
+			</ButtonGroup>
+		</Stack>
 	);
 }

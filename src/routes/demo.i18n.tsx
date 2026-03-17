@@ -1,3 +1,4 @@
+import { Box, Link as MuiLink, Stack, Typography } from "@mui/material";
 import { createFileRoute } from "@tanstack/react-router";
 import { m } from "#/paraglide/messages";
 import LocaleSwitcher from "../components/LocaleSwitcher";
@@ -9,26 +10,39 @@ export const Route = createFileRoute("/demo/i18n")({
 
 function App() {
 	return (
-		<div className="text-center">
-			<header className="min-h-screen flex flex-col items-center justify-center bg-[#282c34] text-white text-[calc(10px+2vmin)] gap-4">
+		<Box
+			component="header"
+			sx={{
+				minHeight: "100vh",
+				display: "flex",
+				alignItems: "center",
+				justifyContent: "center",
+				backgroundColor: "#282c34",
+				color: "#fff",
+			}}
+		>
+			<Stack spacing={2} alignItems="center" textAlign="center" sx={{ px: 2 }}>
 				<img
 					src={logo}
-					className="h-[40vmin] pointer-events-none animate-[spin_20s_linear_infinite]"
+					style={{
+						height: "40vmin",
+						pointerEvents: "none",
+						animation: "spin 20s linear infinite",
+					}}
 					alt="logo"
 				/>
-				<p>{m.example_message({ username: "TanStack Router" })}</p>
-				<a
-					className="text-[#61dafb] hover:underline"
+				<Typography>{m.example_message({ username: "TanStack Router" })}</Typography>
+				<MuiLink
+					color="#61dafb"
 					href="https://inlang.com/m/gerre34r/library-inlang-paraglideJs"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
 					{m.learn_router()}
-				</a>
-				<div className="mt-3">
-					<LocaleSwitcher />
-				</div>
-			</header>
-		</div>
+				</MuiLink>
+				<LocaleSwitcher />
+			</Stack>
+			<style>{"@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }"}</style>
+		</Box>
 	);
 }

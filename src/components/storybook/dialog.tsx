@@ -1,3 +1,4 @@
+import { Box, Paper, Typography } from "@mui/material";
 import type React from "react";
 
 export interface DialogProps {
@@ -14,20 +15,18 @@ export const Dialog: React.FC<DialogProps> = ({
 	className = "",
 }) => {
 	return (
-		<div
-			className={`bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden ${className}`}
-		>
-			<div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-				<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+		<Paper className={className} elevation={4} sx={{ borderRadius: 2, overflow: "hidden" }}>
+			<Box sx={{ px: 3, py: 2, borderBottom: 1, borderColor: "divider" }}>
+				<Typography variant="h6" fontWeight={600}>
 					{title}
-				</h2>
-			</div>
-			<div className="px-6 py-6">{children}</div>
+				</Typography>
+			</Box>
+			<Box sx={{ px: 3, py: 3 }}>{children}</Box>
 			{footer && (
-				<div className="px-6 py-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+				<Box sx={{ px: 3, py: 2, bgcolor: "action.hover", borderTop: 1, borderColor: "divider" }}>
 					{footer}
-				</div>
+				</Box>
 			)}
-		</div>
+		</Paper>
 	);
 };

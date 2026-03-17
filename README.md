@@ -27,16 +27,15 @@ bun --bun run test
 
 ## Styling
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
+This project uses [MUI v7](https://mui.com/) for styling and UI components.
 
-### Removing Tailwind CSS
+### Theming with MUI
 
-If you prefer not to use Tailwind CSS:
+The root MUI theme and providers are defined in `src/routes/__root.tsx`.
 
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `bun install @tailwindcss/vite tailwindcss -D`
+1. Update the `createTheme` configuration in `src/routes/__root.tsx`
+2. Use MUI components and `sx` props in routes and shared components
+3. Add optional MUI packages as needed (for example `@mui/icons-material`)
 
 ## Linting & Formatting
 
@@ -101,7 +100,7 @@ A professional resume template built with TanStack Start and content-collections
 
 - **Content Collections**: Work experience and education managed as markdown files
 - **Skills Filter**: Interactive sidebar to filter jobs by skills/technologies
-- **Beautiful UI**: Modern design with shadcn/ui components
+- **Beautiful UI**: Modern design with MUI components
 - **SSR Ready**: Full server-side rendering with TanStack Start
 
 ## Project Structure
@@ -111,15 +110,8 @@ A professional resume template built with TanStack Start and content-collections
 │   ├── jobs/              # Work experience entries
 │   └── education/         # Education entries
 ├── src/
-│   ├── components/
-│   │   └── ui/            # Shadcn UI components
-│   │       ├── badge.tsx
-│   │       ├── card.tsx
-│   │       ├── checkbox.tsx
-│   │       ├── hover-card.tsx
-│   │       └── separator.tsx
+│   ├── components/         # App and demo components built with MUI
 │   ├── lib/
-│   │   └── utils.ts       # Utility functions
 │   └── routes/
 │       ├── __root.tsx     # Root layout
 │       └── index.tsx      # Resume page

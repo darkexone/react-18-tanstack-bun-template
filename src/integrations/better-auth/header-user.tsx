@@ -1,3 +1,4 @@
+import { Avatar, Box, Button, CircularProgress, Stack, Typography } from "@mui/material";
 import { Link } from "@tanstack/react-router";
 import { authClient } from "#/lib/auth-client";
 
@@ -5,42 +6,38 @@ export default function BetterAuthHeader() {
 	const { data: session, isPending } = authClient.useSession();
 
 	if (isPending) {
-		return (
-			<div className="h-8 w-8 bg-neutral-100 dark:bg-neutral-800 animate-pulse" />
-		);
+		return <CircularProgress size={18} />;
 	}
 
 	if (session?.user) {
 		return (
-			<div className="flex items-center gap-2">
+			<Stack direction="row" spacing={1} alignItems="center">
 				{session.user.image ? (
-					<img src={session.user.image} alt="" className="h-8 w-8" />
+					<Avatar src={session.user.image} sx={{ width: 32, height: 32 }} />
 				) : (
-					<div className="h-8 w-8 bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center">
-						<span className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
+					<Avatar variant="rounded" sx={{ width: 32, height: 32 }}>
+						<Typography variant="caption" fontWeight={600}>
 							{session.user.name?.charAt(0).toUpperCase() || "U"}
-						</span>
-					</div>
+						</Typography>
+					</Avatar>
 				)}
-				<button
+				<Button
 					type="button"
 					onClick={() => {
 						void authClient.signOut();
 					}}
-					className="flex-1 h-9 px-4 text-sm font-medium bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
+					size="small"
+					variant="outlined"
 				>
 					Sign out
-				</button>
-			</div>
+				</Button>
+			</Stack>
 		);
 	}
 
 	return (
-		<Link
-			to="/demo/better-auth"
-			className="h-9 px-4 text-sm font-medium bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors inline-flex items-center"
-		>
-			Sign in
-		</Link>
+		<Button component={Link} to="/demo/better-auth" size="small" variant="outlined">
+			<Box component="span">Sign in</Box>
+		</Button>
 	);
 }

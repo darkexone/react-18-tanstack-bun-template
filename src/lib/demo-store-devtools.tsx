@@ -1,4 +1,5 @@
 import { EventClient } from "@tanstack/devtools-event-client";
+import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import { fullName, store } from "./demo-store";
@@ -41,20 +42,27 @@ function DevtoolPanel() {
 	}, []);
 
 	return (
-		<div className="p-4 grid gap-4 grid-cols-[1fr_10fr]">
-			<div className="text-sm font-bold text-gray-500 whitespace-nowrap">
+		<Box
+			sx={{
+				p: 2,
+				display: "grid",
+				gap: 1,
+				gridTemplateColumns: "1fr 10fr",
+			}}
+		>
+			<Typography variant="body2" fontWeight={700} color="text.secondary">
 				First Name
-			</div>
-			<div className="text-sm">{state?.firstName}</div>
-			<div className="text-sm font-bold text-gray-500 whitespace-nowrap">
+			</Typography>
+			<Typography variant="body2">{state?.firstName}</Typography>
+			<Typography variant="body2" fontWeight={700} color="text.secondary">
 				Last Name
-			</div>
-			<div className="text-sm">{state?.lastName}</div>
-			<div className="text-sm font-bold text-gray-500 whitespace-nowrap">
+			</Typography>
+			<Typography variant="body2">{state?.lastName}</Typography>
+			<Typography variant="body2" fontWeight={700} color="text.secondary">
 				Full Name
-			</div>
-			<div className="text-sm">{state?.fullName}</div>
-		</div>
+			</Typography>
+			<Typography variant="body2">{state?.fullName}</Typography>
+		</Box>
 	);
 }
 

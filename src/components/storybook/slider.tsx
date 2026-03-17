@@ -1,3 +1,4 @@
+import { Box, Slider as MuiSlider, Stack, Typography } from "@mui/material";
 import type React from "react";
 
 export interface SliderProps {
@@ -24,34 +25,34 @@ export const Slider: React.FC<SliderProps> = ({
 	className = "",
 }) => {
 	return (
-		<div className={`flex flex-col gap-2 ${className}`}>
-			<div className="flex justify-between items-center">
-				<label
-					htmlFor={id}
-					className="text-sm font-medium text-gray-700 dark:text-gray-200"
-				>
+		<Stack spacing={1} className={className}>
+			<Stack direction="row" justifyContent="space-between" alignItems="center">
+				<Typography variant="body2" id={id}>
 					{label}
-				</label>
+				</Typography>
 				{showValue && (
-					<span className="text-sm font-semibold text-blue-600 dark:text-blue-400 min-w-12 text-right">
+					<Typography variant="body2" fontWeight={600} color="primary">
 						{value}
-					</span>
+					</Typography>
 				)}
-			</div>
-			<input
-				type="range"
+			</Stack>
+			<MuiSlider
 				id={id}
 				value={value}
-				onChange={(e) => onChange?.(Number(e.target.value))}
+				onChange={(_event, nextValue) => onChange?.(Number(nextValue))}
 				min={min}
 				max={max}
 				step={step}
-				className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600 dark:accent-blue-500"
+				valueLabelDisplay={showValue ? "auto" : "off"}
 			/>
-			<div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
-				<span>{min}</span>
-				<span>{max}</span>
-			</div>
-		</div>
+			<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+				<Typography variant="caption" color="text.secondary">
+					{min}
+				</Typography>
+				<Typography variant="caption" color="text.secondary">
+					{max}
+				</Typography>
+			</Box>
+		</Stack>
 	);
 };

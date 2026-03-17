@@ -1,3 +1,4 @@
+import { Box, Paper, Stack } from "@mui/material";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
@@ -29,37 +30,53 @@ function SimpleForm() {
 	});
 
 	return (
-		<div
-			className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-100 to-blue-100 p-4 text-white"
-			style={{
+		<Box
+			sx={{
+				minHeight: "100vh",
+				display: "flex",
+				alignItems: "center",
+				justifyContent: "center",
+				p: 2,
 				backgroundImage:
 					"radial-gradient(50% 50% at 5% 40%, #add8e6 0%, #0000ff 70%, #00008b 100%)",
 			}}
 		>
-			<div className="w-full max-w-2xl p-8 rounded-xl backdrop-blur-md bg-black/50 shadow-xl border-8 border-black/10">
+			<Paper
+				elevation={8}
+				sx={{
+					width: "100%",
+					maxWidth: 900,
+					p: 4,
+					backdropFilter: "blur(10px)",
+					backgroundColor: "rgba(0,0,0,0.55)",
+					border: "8px solid rgba(0,0,0,0.1)",
+					borderRadius: 3,
+				}}
+			>
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
 						e.stopPropagation();
 						form.handleSubmit();
 					}}
-					className="space-y-6"
 				>
-					<form.AppField name="title">
-						{(field) => <field.TextField label="Title" />}
-					</form.AppField>
+					<Stack spacing={3}>
+						<form.AppField name="title">
+							{(field) => <field.TextField label="Title" />}
+						</form.AppField>
 
-					<form.AppField name="description">
-						{(field) => <field.TextArea label="Description" />}
-					</form.AppField>
+						<form.AppField name="description">
+							{(field) => <field.TextArea label="Description" />}
+						</form.AppField>
 
-					<div className="flex justify-end">
-						<form.AppForm>
-							<form.SubscribeButton label="Submit" />
-						</form.AppForm>
-					</div>
+						<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+							<form.AppForm>
+								<form.SubscribeButton label="Submit" />
+							</form.AppForm>
+						</Box>
+					</Stack>
 				</form>
-			</div>
-		</div>
+			</Paper>
+		</Box>
 	);
 }

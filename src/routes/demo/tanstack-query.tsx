@@ -1,3 +1,4 @@
+import { Box, List, ListItem, Paper, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -18,28 +19,49 @@ function TanStackQueryDemo() {
 	});
 
 	return (
-		<div
-			className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-100 to-blue-100 p-4 text-white"
-			style={{
+		<Box
+			sx={{
+				minHeight: "100vh",
+				display: "flex",
+				alignItems: "center",
+				justifyContent: "center",
+				p: 2,
 				backgroundImage:
 					"radial-gradient(50% 50% at 95% 5%, #f4a460 0%, #8b4513 70%, #1a0f0a 100%)",
 			}}
 		>
-			<div className="w-full max-w-2xl p-8 rounded-xl backdrop-blur-md bg-black/50 shadow-xl border-8 border-black/10">
-				<h1 className="text-2xl mb-4">
+			<Paper
+				elevation={8}
+				sx={{
+					width: "100%",
+					maxWidth: 900,
+					p: 4,
+					backdropFilter: "blur(10px)",
+					backgroundColor: "rgba(0,0,0,0.55)",
+					border: "8px solid rgba(0,0,0,0.1)",
+					borderRadius: 3,
+					color: "common.white",
+				}}
+			>
+				<Typography variant="h5" sx={{ mb: 2 }}>
 					TanStack Query Simple Promise Handling
-				</h1>
-				<ul className="mb-4 space-y-2">
+				</Typography>
+				<List sx={{ p: 0 }}>
 					{data.map((todo) => (
-						<li
+						<ListItem
 							key={todo.id}
-							className="bg-white/10 border border-white/20 rounded-lg p-3 backdrop-blur-sm shadow-md"
+							sx={{
+								mb: 1,
+								borderRadius: 2,
+								border: "1px solid rgba(255,255,255,0.2)",
+								backgroundColor: "rgba(255,255,255,0.08)",
+							}}
 						>
-							<span className="text-lg text-white">{todo.name}</span>
-						</li>
+							<Typography variant="h6">{todo.name}</Typography>
+						</ListItem>
 					))}
-				</ul>
-			</div>
-		</div>
+				</List>
+			</Paper>
+		</Box>
 	);
 }

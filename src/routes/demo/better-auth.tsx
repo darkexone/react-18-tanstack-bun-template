@@ -1,3 +1,15 @@
+import {
+	Alert,
+	Avatar,
+	Box,
+	Button,
+	CircularProgress,
+	Link as MuiLink,
+	Paper,
+	Stack,
+	TextField,
+	Typography,
+} from "@mui/material";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { authClient } from "#/lib/auth-client";
@@ -17,69 +29,69 @@ function BetterAuthDemo() {
 
 	if (isPending) {
 		return (
-			<div className="flex items-center justify-center py-10">
-				<div className="h-5 w-5 animate-spin rounded-full border-2 border-neutral-200 border-t-neutral-900 dark:border-neutral-800 dark:border-t-neutral-100" />
-			</div>
+			<Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
+				<CircularProgress size={22} />
+			</Box>
 		);
 	}
 
 	if (session?.user) {
 		return (
-			<div className="flex justify-center py-10 px-4">
-				<div className="w-full max-w-md p-6 space-y-6">
-					<div className="space-y-1.5">
-						<h1 className="text-lg font-semibold leading-none tracking-tight">
+			<Box sx={{ display: "flex", justifyContent: "center", py: 8, px: 2 }}>
+				<Paper sx={{ width: "100%", maxWidth: 520, p: 3.5 }}>
+					<Stack spacing={3}>
+						<Box>
+							<Typography variant="h6" fontWeight={700}>
 							Welcome back
-						</h1>
-						<p className="text-sm text-neutral-500 dark:text-neutral-400">
+							</Typography>
+							<Typography variant="body2" color="text.secondary">
 							You're signed in as {session.user.email}
-						</p>
-					</div>
+							</Typography>
+						</Box>
 
-					<div className="flex items-center gap-3">
+						<Stack direction="row" spacing={1.5} alignItems="center">
 						{session.user.image ? (
-							<img src={session.user.image} alt="" className="h-10 w-10" />
+							<Avatar src={session.user.image} alt="" />
 						) : (
-							<div className="h-10 w-10 bg-neutral-200 dark:bg-neutral-800 flex items-center justify-center">
-								<span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+							<Avatar variant="rounded">
 									{session.user.name?.charAt(0).toUpperCase() || "U"}
-								</span>
-							</div>
+							</Avatar>
 						)}
-						<div className="flex-1 min-w-0">
-							<p className="text-sm font-medium truncate">
+							<Box sx={{ minWidth: 0, flex: 1 }}>
+								<Typography variant="body2" fontWeight={600} noWrap>
 								{session.user.name}
-							</p>
-							<p className="text-xs text-neutral-500 dark:text-neutral-400 truncate">
+								</Typography>
+								<Typography variant="caption" color="text.secondary" noWrap>
 								{session.user.email}
-							</p>
-						</div>
-					</div>
+								</Typography>
+							</Box>
+						</Stack>
 
-					<button
+						<Button
 						type="button"
 						onClick={() => {
 							void authClient.signOut();
 						}}
-						className="w-full h-9 px-4 text-sm font-medium border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+						variant="outlined"
+						fullWidth
 					>
 						Sign out
-					</button>
+						</Button>
 
-					<p className="text-xs text-center text-neutral-400 dark:text-neutral-500">
+						<Typography variant="caption" color="text.secondary" textAlign="center">
 						Built with{" "}
-						<a
+						<MuiLink
 							href="https://better-auth.com"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="font-medium hover:text-neutral-600 dark:hover:text-neutral-300"
 						>
 							BETTER-AUTH
-						</a>
+						</MuiLink>
 						.
-					</p>
-				</div>
-			</div>
+						</Typography>
+					</Stack>
+				</Paper>
+			</Box>
 		);
 	}
 
@@ -107,7 +119,7 @@ function BetterAuthDemo() {
 					setError(result.error.message || "Sign in failed");
 				}
 			}
-		} catch (err) {
+		} catch {
 			setError("An unexpected error occurred");
 		} finally {
 			setLoading(false);
@@ -115,121 +127,98 @@ function BetterAuthDemo() {
 	};
 
 	return (
-		<div className="flex justify-center py-10 px-4">
-			<div className="w-full max-w-md p-6">
-				<h1 className="text-lg font-semibold leading-none tracking-tight">
+		<Box sx={{ display: "flex", justifyContent: "center", py: 8, px: 2 }}>
+			<Paper sx={{ width: "100%", maxWidth: 520, p: 3.5 }}>
+				<Typography variant="h6" fontWeight={700}>
 					{isSignUp ? "Create an account" : "Sign in"}
-				</h1>
-				<p className="text-sm text-neutral-500 dark:text-neutral-400 mt-2 mb-6">
+				</Typography>
+				<Typography variant="body2" color="text.secondary" sx={{ mt: 1, mb: 3 }}>
 					{isSignUp
 						? "Enter your information to create an account"
 						: "Enter your email below to login to your account"}
-				</p>
+				</Typography>
 
-				<form onSubmit={handleSubmit} className="grid gap-4">
+				<Stack component="form" onSubmit={handleSubmit} spacing={2}>
 					{isSignUp && (
-						<div className="grid gap-2">
-							<label
-								htmlFor="name"
-								className="text-sm font-medium leading-none"
-							>
-								Name
-							</label>
-							<input
+						<TextField
 								id="name"
 								type="text"
+								label="Name"
 								value={name}
 								onChange={(e) => setName(e.target.value)}
-								className="flex h-9 w-full border border-neutral-300 dark:border-neutral-700 bg-transparent px-3 text-sm focus:outline-none focus:border-neutral-900 dark:focus:border-neutral-100 disabled:cursor-not-allowed disabled:opacity-50"
 								required
 							/>
-						</div>
 					)}
 
-					<div className="grid gap-2">
-						<label htmlFor="email" className="text-sm font-medium leading-none">
-							Email
-						</label>
-						<input
+					<TextField
 							id="email"
 							type="email"
+							label="Email"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
-							className="flex h-9 w-full border border-neutral-300 dark:border-neutral-700 bg-transparent px-3 text-sm focus:outline-none focus:border-neutral-900 dark:focus:border-neutral-100 disabled:cursor-not-allowed disabled:opacity-50"
 							required
 						/>
-					</div>
 
-					<div className="grid gap-2">
-						<label
-							htmlFor="password"
-							className="text-sm font-medium leading-none"
-						>
-							Password
-						</label>
-						<input
+					<TextField
 							id="password"
 							type="password"
+							label="Password"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
-							className="flex h-9 w-full border border-neutral-300 dark:border-neutral-700 bg-transparent px-3 text-sm focus:outline-none focus:border-neutral-900 dark:focus:border-neutral-100 disabled:cursor-not-allowed disabled:opacity-50"
 							required
 							minLength={8}
 						/>
-					</div>
 
 					{error && (
-						<div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-3">
-							<p className="text-sm text-red-600 dark:text-red-400">{error}</p>
-						</div>
+						<Alert severity="error" variant="outlined">
+							{error}
+						</Alert>
 					)}
 
-					<button
+					<Button
 						type="submit"
 						disabled={loading}
-						className="w-full h-9 px-4 text-sm font-medium text-white bg-neutral-900 hover:bg-neutral-800 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+						variant="contained"
+						fullWidth
 					>
 						{loading ? (
-							<span className="flex items-center justify-center gap-2">
-								<span className="h-4 w-4 animate-spin rounded-full border-2 border-neutral-400 border-t-white dark:border-neutral-600 dark:border-t-neutral-900" />
-								<span>Please wait</span>
-							</span>
+							"Please wait"
 						) : isSignUp ? (
 							"Create account"
 						) : (
 							"Sign in"
 						)}
-					</button>
-				</form>
+					</Button>
+				</Stack>
 
-				<div className="mt-4 text-center">
-					<button
+				<Box sx={{ mt: 2, textAlign: "center" }}>
+					<Button
 						type="button"
 						onClick={() => {
 							setIsSignUp(!isSignUp);
 							setError("");
 						}}
-						className="text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+						variant="text"
+						size="small"
 					>
 						{isSignUp
 							? "Already have an account? Sign in"
 							: "Don't have an account? Sign up"}
-					</button>
-				</div>
+					</Button>
+				</Box>
 
-				<p className="mt-6 text-xs text-center text-neutral-400 dark:text-neutral-500">
+				<Typography variant="caption" color="text.secondary" sx={{ mt: 3, display: "block", textAlign: "center" }}>
 					Built with{" "}
-					<a
+					<MuiLink
 						href="https://better-auth.com"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="font-medium hover:text-neutral-600 dark:hover:text-neutral-300"
 					>
 						BETTER-AUTH
-					</a>
+					</MuiLink>
 					.
-				</p>
-			</div>
-		</div>
+				</Typography>
+			</Paper>
+		</Box>
 	);
 }

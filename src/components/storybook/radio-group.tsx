@@ -1,3 +1,10 @@
+import {
+	FormControl,
+	FormControlLabel,
+	FormLabel,
+	Radio,
+	RadioGroup as MuiRadioGroup,
+} from "@mui/material";
 import type React from "react";
 
 export interface RadioOption {
@@ -23,30 +30,18 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
 	className = "",
 }) => {
 	return (
-		<fieldset className={`flex flex-col gap-3 ${className}`}>
-			<legend className="text-sm font-medium text-gray-700 dark:text-gray-200">
-				{label}
-			</legend>
-			<div className="flex gap-4">
+		<FormControl className={className}>
+			<FormLabel>{label}</FormLabel>
+			<MuiRadioGroup row name={name} value={value} onChange={(e) => onChange?.(e.target.value)}>
 				{options.map((option) => (
-					<label
+					<FormControlLabel
 						key={option.value}
-						className="flex items-center gap-2 cursor-pointer group"
-					>
-						<input
-							type="radio"
-							name={name}
-							value={option.value}
-							checked={value === option.value}
-							onChange={(e) => onChange?.(e.target.value)}
-							className="w-4 h-4 text-blue-600 border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 cursor-pointer"
-						/>
-						<span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors">
-							{option.label}
-						</span>
-					</label>
+						value={option.value}
+						control={<Radio size="small" />}
+						label={option.label}
+					/>
 				))}
-			</div>
-		</fieldset>
+			</MuiRadioGroup>
+		</FormControl>
 	);
 };

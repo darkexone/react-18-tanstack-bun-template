@@ -1,5 +1,21 @@
 import type { RankingInfo } from "@tanstack/match-sorter-utils";
 import { compareItems, rankItem } from "@tanstack/match-sorter-utils";
+import {
+	Box,
+	Button,
+	MenuItem,
+	Paper,
+	Select,
+	Stack,
+	Table,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableHead,
+	TableRow,
+	TextField,
+	Typography,
+} from "@mui/material";
 import { createFileRoute } from "@tanstack/react-router";
 import type {
 	Column,
@@ -35,7 +51,7 @@ declare module "@tanstack/react-table" {
 }
 
 // Define a custom fuzzy filter function that will apply ranking info to rows (using match-sorter utils)
-const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
+const fuzzyFilter: FilterFn<Person> = (row, columnId, value, addMeta) => {
 	// Rank the item
 	const itemRank = rankItem(row.getValue(columnId), value);
 
@@ -49,7 +65,7 @@ const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
 };
 
 // Define a custom fuzzy sort function that will sort by rank if the row has ranking information
-const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
+const fuzzySort: SortingFn<Person> = (rowA, rowB, columnId) => {
 	let dir = 0;
 	const leftRank = rowA.columnFiltersMeta[columnId]?.itemRank;
 	const rightRank = rowB.columnFiltersMeta[columnId]?.itemRank;
@@ -71,7 +87,7 @@ function TableDemo() {
 	);
 	const [globalFilter, setGlobalFilter] = React.useState("");
 
-	const columns = React.useMemo<ColumnDef<Person, any>[]>(
+	const columns = React.useMemo<ColumnDef<Person>[]>(
 		() => [
 			{
 				accessorKey: "id",
@@ -137,36 +153,36 @@ function TableDemo() {
 	}, [table]);
 
 	return (
-		<div className="min-h-screen bg-gray-900 p-6">
-			<div>
+		<Box sx={{ minHeight: "100vh", bgcolor: "grey.900", p: 3 }}>
+			<Box>
 				<DebouncedInput
 					value={globalFilter ?? ""}
 					onChange={(value) => setGlobalFilter(String(value))}
-					className="w-full p-3 bg-gray-800 text-white rounded-lg border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+					fullWidth
+					size="small"
 					placeholder="Search all columns..."
 				/>
-			</div>
-			<div className="h-4" />
-			<div className="overflow-x-auto rounded-lg border border-gray-700">
-				<table className="w-full text-sm text-gray-200">
-					<thead className="bg-gray-800 text-gray-100">
+			</Box>
+			<Box sx={{ height: 16 }} />
+			<TableContainer component={Paper} variant="outlined">
+				<Table size="small">
+					<TableHead sx={{ bgcolor: "grey.100" }}>
 						{table.getHeaderGroups().map((headerGroup) => (
-							<tr key={headerGroup.id}>
+							<TableRow key={headerGroup.id}>
 								{headerGroup.headers.map((header) => {
 									return (
-										<th
+										<TableCell
 											key={header.id}
 											colSpan={header.colSpan}
-											className="px-4 py-3 text-left"
+											sx={{ verticalAlign: "top" }}
 										>
 											{header.isPlaceholder ? null : (
 												<>
-													<div
-														{...{
-															className: header.column.getCanSort()
-																? "cursor-pointer select-none hover:text-blue-400 transition-colors"
-																: "",
-															onClick: header.column.getToggleSortingHandler(),
+													<Box
+														onClick={header.column.getToggleSortingHandler()}
+														sx={{
+															cursor: header.column.getCanSort() ? "pointer" : "default",
+															userSelect: "none",
 														}}
 													>
 														{flexRender(
@@ -177,130 +193,128 @@ function TableDemo() {
 															asc: " 🔼",
 															desc: " 🔽",
 														}[header.column.getIsSorted() as string] ?? null}
-													</div>
+													</Box>
 													{header.column.getCanFilter() ? (
-														<div className="mt-2">
+														<Box sx={{ mt: 1 }}>
 															<Filter column={header.column} />
-														</div>
+														</Box>
 													) : null}
 												</>
 											)}
-										</th>
+										</TableCell>
 									);
 								})}
-							</tr>
+							</TableRow>
 						))}
-					</thead>
-					<tbody className="divide-y divide-gray-700">
+					</TableHead>
+					<TableBody>
 						{table.getRowModel().rows.map((row) => {
 							return (
-								<tr
+								<TableRow
 									key={row.id}
-									className="hover:bg-gray-800 transition-colors"
+									hover
 								>
 									{row.getVisibleCells().map((cell) => {
 										return (
-											<td key={cell.id} className="px-4 py-3">
+											<TableCell key={cell.id}>
 												{flexRender(
 													cell.column.columnDef.cell,
 													cell.getContext(),
 												)}
-											</td>
+											</TableCell>
 										);
 									})}
-								</tr>
+								</TableRow>
 							);
 						})}
-					</tbody>
-				</table>
-			</div>
-			<div className="h-4" />
-			<div className="flex flex-wrap items-center gap-2 text-gray-200">
-				<button
+					</TableBody>
+				</Table>
+			</TableContainer>
+			<Box sx={{ height: 16 }} />
+			<Stack direction="row" spacing={1} flexWrap="wrap" alignItems="center">
+				<Button
 					type="button"
-					className="px-3 py-1 bg-gray-800 rounded-md hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+					variant="outlined"
 					onClick={() => table.setPageIndex(0)}
 					disabled={!table.getCanPreviousPage()}
 				>
 					{"<<"}
-				</button>
-				<button
+				</Button>
+				<Button
 					type="button"
-					className="px-3 py-1 bg-gray-800 rounded-md hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+					variant="outlined"
 					onClick={() => table.previousPage()}
 					disabled={!table.getCanPreviousPage()}
 				>
 					{"<"}
-				</button>
-				<button
+				</Button>
+				<Button
 					type="button"
-					className="px-3 py-1 bg-gray-800 rounded-md hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+					variant="outlined"
 					onClick={() => table.nextPage()}
 					disabled={!table.getCanNextPage()}
 				>
 					{">"}
-				</button>
-				<button
+				</Button>
+				<Button
 					type="button"
-					className="px-3 py-1 bg-gray-800 rounded-md hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+					variant="outlined"
 					onClick={() => table.setPageIndex(table.getPageCount() - 1)}
 					disabled={!table.getCanNextPage()}
 				>
 					{">>"}
-				</button>
-				<span className="flex items-center gap-1">
-					<div>Page</div>
-					<strong>
+				</Button>
+				<Typography color="grey.100">
+					Page <strong>
 						{table.getState().pagination.pageIndex + 1} of{" "}
 						{table.getPageCount()}
 					</strong>
-				</span>
-				<span className="flex items-center gap-1">
-					| Go to page:
-					<input
+				</Typography>
+				<TextField
 						type="number"
 						defaultValue={table.getState().pagination.pageIndex + 1}
 						onChange={(e) => {
 							const page = e.target.value ? Number(e.target.value) - 1 : 0;
 							table.setPageIndex(page);
 						}}
-						className="w-16 px-2 py-1 bg-gray-800 rounded-md border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+						size="small"
+						sx={{ width: 96 }}
 					/>
-				</span>
-				<select
+				<Select
 					value={table.getState().pagination.pageSize}
 					onChange={(e) => {
 						table.setPageSize(Number(e.target.value));
 					}}
-					className="px-2 py-1 bg-gray-800 rounded-md border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+					size="small"
 				>
 					{[10, 20, 30, 40, 50].map((pageSize) => (
-						<option key={pageSize} value={pageSize}>
+						<MenuItem key={pageSize} value={pageSize}>
 							Show {pageSize}
-						</option>
+						</MenuItem>
 					))}
-				</select>
-			</div>
-			<div className="mt-4 text-gray-400">
+				</Select>
+			</Stack>
+			<Typography sx={{ mt: 2 }} color="grey.400">
 				{table.getPrePaginationRowModel().rows.length} Rows
-			</div>
-			<div className="mt-4 flex gap-2">
-				<button
+			</Typography>
+			<Stack direction="row" spacing={1} sx={{ mt: 2 }}>
+				<Button
 					type="button"
 					onClick={() => rerender()}
-					className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+					variant="contained"
 				>
 					Force Rerender
-				</button>
-				<button
+				</Button>
+				<Button
 					type="button"
 					onClick={() => refreshData()}
-					className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+					variant="contained"
 				>
 					Refresh Data
-				</button>
-			</div>
-			<pre className="mt-4 p-4 bg-gray-800 rounded-lg text-gray-300 overflow-auto">
+				</Button>
+			</Stack>
+			<Paper sx={{ mt: 2, p: 2, overflow: "auto", bgcolor: "grey.800", color: "grey.300" }}>
+				<pre>
 				{JSON.stringify(
 					{
 						columnFilters: table.getState().columnFilters,
@@ -309,12 +323,13 @@ function TableDemo() {
 					null,
 					2,
 				)}
-			</pre>
-		</div>
+				</pre>
+			</Paper>
+		</Box>
 	);
 }
 
-function Filter({ column }: { column: Column<any, unknown> }) {
+function Filter({ column }: { column: Column<Person, unknown> }) {
 	const columnFilterValue = column.getFilterValue();
 
 	return (
@@ -323,7 +338,8 @@ function Filter({ column }: { column: Column<any, unknown> }) {
 			value={(columnFilterValue ?? "") as string}
 			onChange={(value) => column.setFilterValue(value)}
 			placeholder={`Search...`}
-			className="w-full px-2 py-1 bg-gray-700 text-white rounded-md border border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+			size="small"
+			fullWidth
 		/>
 	);
 }
@@ -338,7 +354,7 @@ function DebouncedInput({
 	value: string | number;
 	onChange: (value: string | number) => void;
 	debounce?: number;
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange">) {
+} & Omit<React.ComponentProps<typeof TextField>, "onChange" | "value">) {
 	const [value, setValue] = React.useState(initialValue);
 
 	React.useEffect(() => {
@@ -354,7 +370,7 @@ function DebouncedInput({
 	}, [debounce, onChange, value]);
 
 	return (
-		<input
+		<TextField
 			{...props}
 			value={value}
 			onChange={(e) => setValue(e.target.value)}

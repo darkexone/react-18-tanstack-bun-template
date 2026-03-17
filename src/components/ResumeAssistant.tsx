@@ -1,5 +1,17 @@
 import { Store } from "@tanstack/store";
-import { Briefcase, Send, UserCheck, X } from "lucide-react";
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import CloseIcon from "@mui/icons-material/Close";
+import SendIcon from "@mui/icons-material/Send";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import {
+	Avatar,
+	Box,
+	IconButton,
+	Paper,
+	Stack,
+	TextField,
+	Typography,
+} from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { Streamdown } from "streamdown";
 import type { ResumeChatMessages } from "#/lib/resume-ai-hook";
@@ -21,59 +33,70 @@ function Messages({ messages }: { messages: ResumeChatMessages }) {
 
 	if (!messages.length) {
 		return (
-			<div className="flex-1 flex flex-col items-center justify-center text-slate-300/60 text-sm px-6 py-8">
-				<div className="relative mb-4">
-					<Briefcase className="w-12 h-12 text-blue-400/40 animate-pulse" />
-					<UserCheck className="w-6 h-6 text-purple-400/60 absolute -bottom-1 -right-1" />
-				</div>
-				<p className="text-center text-slate-200/80 font-medium">
+			<Stack
+				sx={{
+					flex: 1,
+					px: 3,
+					py: 4,
+					alignItems: "center",
+					justifyContent: "center",
+				}}
+				spacing={1}
+			>
+				<Box sx={{ position: "relative", mb: 1 }}>
+					<BusinessCenterIcon color="primary" sx={{ fontSize: 48, opacity: 0.45 }} />
+					<VerifiedUserIcon color="secondary" sx={{ position: "absolute", bottom: -2, right: -4, fontSize: 24 }} />
+				</Box>
+				<Typography textAlign="center" fontWeight={600}>
 					Welcome, Recruiter!
-				</p>
-				<p className="text-xs text-slate-300/40 mt-2 text-center max-w-[200px]">
+				</Typography>
+				<Typography variant="caption" textAlign="center" color="text.secondary" sx={{ maxWidth: 220 }}>
 					Ask about skills, experience, or qualifications...
-				</p>
-			</div>
+				</Typography>
+			</Stack>
 		);
 	}
 
 	return (
-		<div ref={messagesContainerRef} className="flex-1 overflow-y-auto">
+		<Box ref={messagesContainerRef} sx={{ flex: 1, overflowY: "auto" }}>
 			{messages.map(({ id, role, parts }) => (
-				<div
+				<Box
 					key={id}
-					className={`py-3 ${
-						role === "assistant"
-							? "bg-linear-to-r from-blue-500/5 via-purple-500/5 to-slate-500/5"
-							: "bg-transparent"
-					}`}
+					sx={{
+						py: 1.5,
+						bgcolor:
+							role === "assistant" ? "rgba(30,136,229,0.08)" : "transparent",
+					}}
 				>
 					{parts.map((part) => {
 						if (part.type === "text" && part.content) {
 							return (
-								<div
+								<Stack
 									key={`${id}-${part.type}-${part.content}`}
-									className="flex items-start gap-3 px-4"
+									direction="row"
+									spacing={1.5}
+									sx={{ px: 2, alignItems: "flex-start" }}
 								>
 									{role === "assistant" ? (
-										<div className="w-7 h-7 rounded-full bg-linear-to-br from-blue-500 via-purple-500 to-slate-600 flex items-center justify-center text-xs font-bold text-white flex-shrink-0 shadow-lg shadow-blue-500/20">
-											<Briefcase className="w-4 h-4" />
-										</div>
+										<Avatar sx={{ width: 28, height: 28, bgcolor: "primary.main" }}>
+											<BusinessCenterIcon sx={{ fontSize: 16 }} />
+										</Avatar>
 									) : (
-										<div className="w-7 h-7 rounded-full bg-slate-600 flex items-center justify-center text-xs font-medium text-white flex-shrink-0">
+										<Avatar sx={{ width: 28, height: 28, bgcolor: "grey.600", fontSize: 12 }}>
 											You
-										</div>
+										</Avatar>
 									)}
-									<div className="flex-1 min-w-0 text-slate-100 prose dark:prose-invert max-w-none prose-sm prose-p:text-slate-100 prose-headings:text-slate-200 prose-strong:text-slate-300">
+									<Box sx={{ flex: 1, minWidth: 0 }}>
 										<Streamdown>{part.content}</Streamdown>
-									</div>
-								</div>
+									</Box>
+								</Stack>
 							);
 						}
 						return null;
 					})}
-				</div>
+				</Box>
 			))}
-		</div>
+		</Box>
 	);
 }
 
@@ -87,9 +110,13 @@ export default function ResumeAssistant() {
 
 	// Sync with store for header control
 	useEffect(() => {
-		return showResumeAssistant.subscribe(() => {
+		const subscription = showResumeAssistant.subscribe(() => {
 			setIsOpen(showResumeAssistant.state);
 		});
+
+		return () => {
+			subscription.unsubscribe();
+		};
 	}, []);
 
 	const handleToggle = () => {
@@ -105,74 +132,76 @@ export default function ResumeAssistant() {
 		}
 	};
 
-	if (!isOpen) return null;
+	if (!isOpen) {
+		return null;
+	}
 
 	return (
-		<div className="fixed top-20 right-4 z-[100] w-[400px] h-[520px] rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-blue-500/20 backdrop-blur-xl bg-linear-to-b from-slate-900/98 via-slate-900/95 to-slate-800/98">
-			{/* Decorative top gradient */}
-			<div className="absolute top-0 left-0 right-0 h-32 bg-linear-to-b from-blue-500/10 via-purple-500/5 to-transparent pointer-events-none" />
-
-			{/* Header */}
-			<div className="relative flex items-center justify-between p-4 border-b border-blue-500/10">
-				<div className="flex items-center gap-3">
-					<div className="w-10 h-10 rounded-2xl bg-linear-to-br from-blue-500 via-purple-500 to-slate-600 flex items-center justify-center shadow-lg shadow-blue-500/30 rotate-3 hover:rotate-0 transition-transform">
-						<Briefcase className="w-5 h-5 text-white" />
-					</div>
-					<div>
-						<h3 className="font-bold text-slate-200 text-base tracking-tight">
+		<Paper
+			elevation={12}
+			sx={{
+				position: "fixed",
+				top: 96,
+				right: 16,
+				zIndex: 100,
+				width: 400,
+				height: 520,
+				display: "flex",
+				flexDirection: "column",
+				overflow: "hidden",
+				borderRadius: 3,
+			}}
+		>
+			<Stack
+				direction="row"
+				justifyContent="space-between"
+				alignItems="center"
+				sx={{ p: 2, borderBottom: 1, borderColor: "divider" }}
+			>
+				<Stack direction="row" spacing={1.5} alignItems="center">
+					<Avatar sx={{ bgcolor: "primary.main" }}>
+						<BusinessCenterIcon sx={{ fontSize: 18 }} />
+					</Avatar>
+					<Box>
+						<Typography variant="subtitle1" fontWeight={700}>
 							Resume Assistant
-						</h3>
-						<p className="text-xs text-blue-300/50">Candidate Evaluation AI</p>
-					</div>
-				</div>
-				<button
-					type="button"
-					onClick={handleToggle}
-					className="text-slate-300/50 hover:text-slate-100 transition-colors p-2 hover:bg-white/5 rounded-xl"
-				>
-					<X className="w-5 h-5" />
-				</button>
-			</div>
+						</Typography>
+						<Typography variant="caption" color="text.secondary">
+							Candidate Evaluation AI
+						</Typography>
+					</Box>
+				</Stack>
+				<IconButton onClick={handleToggle} aria-label="Close assistant">
+					<CloseIcon fontSize="small" />
+				</IconButton>
+			</Stack>
 
-			{/* Messages */}
 			<Messages messages={messages} />
 
-			{/* Loading indicator */}
 			{isLoading && (
-				<div className="px-4 py-3 border-t border-blue-500/10">
-					<div className="flex items-center gap-2 text-blue-400/80 text-xs">
-						<div className="flex gap-1">
-							<span className="w-2 h-2 bg-blue-400 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-							<span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-							<span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></span>
-						</div>
-						<span className="font-medium">Analyzing experience...</span>
-					</div>
-				</div>
+				<Typography variant="caption" sx={{ px: 2, py: 1 }} color="text.secondary">
+					Analyzing experience...
+				</Typography>
 			)}
 
-			{/* Input */}
-			<div className="relative p-4 border-t border-blue-500/10 bg-slate-900/50">
+			<Box sx={{ p: 2, borderTop: 1, borderColor: "divider" }}>
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
 						handleSend();
 					}}
 				>
-					<div className="relative">
-						<textarea
+					<Stack direction="row" spacing={1} alignItems="flex-end">
+						<TextField
 							value={input}
 							onChange={(e) => setInput(e.target.value)}
 							placeholder="Ask about skills, experience, or qualifications..."
 							disabled={isLoading}
-							className="w-full rounded-2xl border border-blue-500/20 bg-slate-800/50 pl-4 pr-12 py-3 text-sm text-slate-100 placeholder-slate-300/30 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-transparent resize-none overflow-hidden disabled:opacity-50 transition-all"
-							rows={1}
-							style={{ minHeight: "48px", maxHeight: "100px" }}
-							onInput={(e) => {
-								const target = e.target as HTMLTextAreaElement;
-								target.style.height = "auto";
-								target.style.height = `${Math.min(target.scrollHeight, 100)}px`;
-							}}
+							fullWidth
+							multiline
+							minRows={1}
+							maxRows={4}
+							size="small"
 							onKeyDown={(e) => {
 								if (
 									e.key === "Enter" &&
@@ -185,16 +214,16 @@ export default function ResumeAssistant() {
 								}
 							}}
 						/>
-						<button
+						<IconButton
 							type="submit"
 							disabled={!input.trim() || isLoading}
-							className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-linear-to-r from-blue-500 to-purple-500 text-white disabled:opacity-30 disabled:bg-gray-600 disabled:from-gray-600 disabled:to-gray-600 transition-all hover:shadow-lg hover:shadow-blue-500/20"
+							color="primary"
 						>
-							<Send className="w-4 h-4" />
-						</button>
-					</div>
+							<SendIcon fontSize="small" />
+						</IconButton>
+					</Stack>
 				</form>
-			</div>
-		</div>
+			</Box>
+		</Paper>
 	);
 }
