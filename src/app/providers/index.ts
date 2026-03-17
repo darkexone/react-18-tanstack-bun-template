@@ -1,2 +1,1 @@
-// App providers public API
-export {};
+export { AppProviders } from "./app-providers";

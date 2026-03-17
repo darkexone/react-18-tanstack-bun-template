@@ -15,7 +15,7 @@ import { useStore } from "@tanstack/react-form";
 import {
 	useFieldContext,
 	useFormContext,
-} from "@/features/address-form/model/form-context";
+} from "../model/form-context";
 
 export function SubscribeButton({ label }: { label: string }) {
 	const form = useFormContext();

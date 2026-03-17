@@ -1,2 +1,1 @@
-// App layout public API
-export {};
+export { AppShell } from "./app-shell";

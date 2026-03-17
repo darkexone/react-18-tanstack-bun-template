@@ -25,9 +25,160 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"style": {
+				"noRestrictedImports": {
+					"level": "error",
+					"options": {
+						"patterns": [
+							{
+								"group": [
+									"../*"
+								],
+								"message": "Use aliases and public API exports for cross-module imports."
+							}
+						]
+					}
+				}
+			}
 		}
 	},
+	"overrides": [
+		{
+			"includes": [
+				"src/shared/**/*.{ts,tsx}"
+			],
+			"linter": {
+				"rules": {
+					"style": {
+						"noRestrictedImports": {
+							"level": "error",
+							"options": {
+								"patterns": [
+									{
+										"group": [
+											"@/app/**",
+											"@/pages/**",
+											"@/widgets/**",
+											"@/features/**",
+											"@/entities/**"
+										],
+										"message": "Shared can only depend on shared and external packages."
+									}
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				"src/entities/**/*.{ts,tsx}"
+			],
+			"linter": {
+				"rules": {
+					"style": {
+						"noRestrictedImports": {
+							"level": "error",
+							"options": {
+								"patterns": [
+									{
+										"group": [
+											"@/app/**",
+											"@/pages/**",
+											"@/widgets/**",
+											"@/features/**",
+											"@/entities/**"
+										],
+										"message": "Entities can import from shared or same slice only (use relative imports within slice)."
+									}
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				"src/features/**/*.{ts,tsx}"
+			],
+			"linter": {
+				"rules": {
+					"style": {
+						"noRestrictedImports": {
+							"level": "error",
+							"options": {
+								"patterns": [
+									{
+										"group": [
+											"@/app/**",
+											"@/pages/**",
+											"@/widgets/**",
+											"@/features/**"
+										],
+										"message": "Features cannot import app/pages/widgets or other features by alias (no sideways imports)."
+									}
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				"src/widgets/**/*.{ts,tsx}"
+			],
+			"linter": {
+				"rules": {
+					"style": {
+						"noRestrictedImports": {
+							"level": "error",
+							"options": {
+								"patterns": [
+									{
+										"group": [
+											"@/app/**",
+											"@/pages/**",
+											"@/widgets/**"
+										],
+										"message": "Widgets cannot import app/pages or other widgets by alias (no sideways imports)."
+									}
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				"src/pages/**/*.{ts,tsx}"
+			],
+			"linter": {
+				"rules": {
+					"style": {
+						"noRestrictedImports": {
+							"level": "error",
+							"options": {
+								"patterns": [
+									{
+										"group": [
+											"@/app/**",
+											"@/pages/**"
+										],
+										"message": "Pages cannot import app or other pages by alias (no sideways imports)."
+									}
+								]
+							}
+						}
+					}
+				}
+			}
+		}
+	],
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double"

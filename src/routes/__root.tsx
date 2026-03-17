@@ -1,31 +1,16 @@
 import {
 	Box,
-	CssBaseline,
-	createTheme,
-	ThemeProvider,
 	Typography,
 } from "@mui/material";
-import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import { useEffect } from "react";
+import { AppShell } from "@/app/layout";
+import { AppProviders } from "@/app/providers";
 import { getLocale, locales, setLocale } from "@/shared/i18n";
-import {
-	TanStackQueryDevtools,
-	TanStackQueryProvider,
-} from "@/shared/integrations/tanstack-query";
-import { Footer, Header } from "@/widgets";
 
 interface MyRouterContext {
 	queryClient: QueryClient;
 }
-
-const theme = createTheme({
-	palette: {
-		mode: "light",
-	},
-});
 
 // Helper: Extract locale from pathname
 function extractLocaleFromPath(pathname: string): string | null {
@@ -73,56 +58,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootComponent() {
 	return (
-		<ThemeProvider theme={theme}>
-			<CssBaseline />
-			<Box sx={{ overflowWrap: "anywhere" }}>
-				<ThemeInitializer />
-				<TanStackQueryProvider>
-					<Header />
-					<Outlet />
-					<Footer />
-					<TanStackDevtools
-						config={{
-							position: "bottom-right",
-						}}
-						plugins={[
-							{
-								name: "Tanstack Router",
-								render: <TanStackRouterDevtoolsPanel />,
-							},
-							TanStackQueryDevtools,
-						]}
-					/>
-				</TanStackQueryProvider>
-			</Box>
-		</ThemeProvider>
+		<AppProviders>
+			<AppShell>
+				<Outlet />
+			</AppShell>
+		</AppProviders>
 	);
-}
-
-function ThemeInitializer() {
-	useEffect(() => {
-		const stored = window.localStorage.getItem("theme");
-		const mode =
-			stored === "light" || stored === "dark" || stored === "auto"
-				? stored
-				: "auto";
-		const prefersDark = window.matchMedia(
-			"(prefers-color-scheme: dark)",
-		).matches;
-		const resolved = mode === "auto" ? (prefersDark ? "dark" : "light") : mode;
-		const root = document.documentElement;
-
-		root.classList.remove("light", "dark");
-		root.classList.add(resolved);
-
-		if (mode === "auto") {
-			root.removeAttribute("data-theme");
-		} else {
-			root.setAttribute("data-theme", mode);
-		}
-
-		root.style.colorScheme = resolved;
-	}, []);
-
-	return null;
 }
