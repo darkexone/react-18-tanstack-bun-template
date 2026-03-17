@@ -1,7 +1,4 @@
-import {
-	Box,
-	Typography,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import type { QueryClient } from "@tanstack/react-query";
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import { AppShell } from "@/app/layout";

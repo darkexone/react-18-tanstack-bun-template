@@ -32,9 +32,7 @@
 					"options": {
 						"patterns": [
 							{
-								"group": [
-									"../*"
-								],
+								"group": ["../*"],
 								"message": "Use aliases and public API exports for cross-module imports."
 							}
 						]
@@ -45,9 +43,7 @@
 	},
 	"overrides": [
 		{
-			"includes": [
-				"src/shared/**/*.{ts,tsx}"
-			],
+			"includes": ["src/shared/**/*.{ts,tsx}"],
 			"linter": {
 				"rules": {
 					"style": {
@@ -73,9 +69,7 @@
 			}
 		},
 		{
-			"includes": [
-				"src/entities/**/*.{ts,tsx}"
-			],
+			"includes": ["src/entities/**/*.{ts,tsx}"],
 			"linter": {
 				"rules": {
 					"style": {
@@ -101,9 +95,7 @@
 			}
 		},
 		{
-			"includes": [
-				"src/features/**/*.{ts,tsx}"
-			],
+			"includes": ["src/features/**/*.{ts,tsx}"],
 			"linter": {
 				"rules": {
 					"style": {
@@ -128,9 +120,7 @@
 			}
 		},
 		{
-			"includes": [
-				"src/widgets/**/*.{ts,tsx}"
-			],
+			"includes": ["src/widgets/**/*.{ts,tsx}"],
 			"linter": {
 				"rules": {
 					"style": {
@@ -139,11 +129,7 @@
 							"options": {
 								"patterns": [
 									{
-										"group": [
-											"@/app/**",
-											"@/pages/**",
-											"@/widgets/**"
-										],
+										"group": ["@/app/**", "@/pages/**", "@/widgets/**"],
 										"message": "Widgets cannot import app/pages or other widgets by alias (no sideways imports)."
 									}
 								]
@@ -154,9 +140,7 @@
 			}
 		},
 		{
-			"includes": [
-				"src/pages/**/*.{ts,tsx}"
-			],
+			"includes": ["src/pages/**/*.{ts,tsx}"],
 			"linter": {
 				"rules": {
 					"style": {
@@ -165,10 +149,7 @@
 							"options": {
 								"patterns": [
 									{
-										"group": [
-											"@/app/**",
-											"@/pages/**"
-										],
+										"group": ["@/app/**", "@/pages/**"],
 										"message": "Pages cannot import app or other pages by alias (no sideways imports)."
 									}
 								]

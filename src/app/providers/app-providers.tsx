@@ -1,9 +1,4 @@
-import {
-	Box,
-	CssBaseline,
-	createTheme,
-	ThemeProvider,
-} from "@mui/material";
+import { Box, CssBaseline, createTheme, ThemeProvider } from "@mui/material";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import type { ReactNode } from "react";

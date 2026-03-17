@@ -1,1 +1,6 @@
-export { validateEmail, validatePhone, validateRequired, validateZipCode } from "./validators";
+export {
+	validateEmail,
+	validatePhone,
+	validateRequired,
+	validateZipCode,
+} from "./validators";
