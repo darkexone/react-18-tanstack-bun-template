@@ -15,13 +15,21 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { LocaleSwitcher } from "~/features/i18n";
 import { ThemeToggle } from "~/features/theme";
+import type { FileRouteTypes } from "~/routeTree.gen";
 
 export default function Header() {
 	const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
 
-	const demoLinks = [
-		{ label: "TanStack Table", href: "/demo/table" },
-		{ label: "Address Form", href: "/demo/form/address" },
+	const demoLinks: Array<{ label: string; href: FileRouteTypes["fullPaths"] }> =
+		[
+			{ label: "TanStack Table", href: "/demo/table" },
+			{ label: "Address Form", href: "/demo/form/address" },
+			{ label: "Event Handling", href: "/demo/event-handling" },
+		];
+
+	const navLinks: Array<{ label: string; to: FileRouteTypes["to"] }> = [
+		{ label: "Home", to: "/" },
+		{ label: "About", to: "/about" },
 	];
 
 	return (
@@ -53,12 +61,16 @@ export default function Header() {
 							spacing={1}
 							sx={{ alignItems: "center", pb: 0.5 }}
 						>
-							<Button component={Link} to="/" color="inherit">
-								Home
-							</Button>
-							<Button component={Link} to="/about" color="inherit">
-								About
-							</Button>
+							{navLinks.map((link) => (
+								<Button
+									key={link.to}
+									component={Link}
+									to={link.to}
+									color="inherit"
+								>
+									{link.label}
+								</Button>
+							))}
 							<Button
 								href="https://tanstack.com/router/latest/docs/framework/react/overview"
 								target="_blank"

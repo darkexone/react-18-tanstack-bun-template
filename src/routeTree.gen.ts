@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTableRouteImport } from './routes/demo/table'
+import { Route as DemoEventHandlingRouteImport } from './routes/demo/event-handling'
 import { Route as DemoFormAddressRouteImport } from './routes/demo/form.address'
 
 const AboutRoute = AboutRouteImport.update({
@@ -29,6 +30,11 @@ const DemoTableRoute = DemoTableRouteImport.update({
   path: '/demo/table',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DemoEventHandlingRoute = DemoEventHandlingRouteImport.update({
+  id: '/demo/event-handling',
+  path: '/demo/event-handling',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DemoFormAddressRoute = DemoFormAddressRouteImport.update({
   id: '/demo/form/address',
   path: '/demo/form/address',
@@ -38,12 +44,14 @@ const DemoFormAddressRoute = DemoFormAddressRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/demo/event-handling': typeof DemoEventHandlingRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/form/address': typeof DemoFormAddressRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/demo/event-handling': typeof DemoEventHandlingRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/form/address': typeof DemoFormAddressRoute
 }
@@ -51,20 +59,38 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/demo/event-handling': typeof DemoEventHandlingRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/form/address': typeof DemoFormAddressRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/demo/table' | '/demo/form/address'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/demo/event-handling'
+    | '/demo/table'
+    | '/demo/form/address'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/demo/table' | '/demo/form/address'
-  id: '__root__' | '/' | '/about' | '/demo/table' | '/demo/form/address'
+  to:
+    | '/'
+    | '/about'
+    | '/demo/event-handling'
+    | '/demo/table'
+    | '/demo/form/address'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/demo/event-handling'
+    | '/demo/table'
+    | '/demo/form/address'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  DemoEventHandlingRoute: typeof DemoEventHandlingRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
 }
@@ -92,6 +118,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoTableRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/demo/event-handling': {
+      id: '/demo/event-handling'
+      path: '/demo/event-handling'
+      fullPath: '/demo/event-handling'
+      preLoaderRoute: typeof DemoEventHandlingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/demo/form/address': {
       id: '/demo/form/address'
       path: '/demo/form/address'
@@ -105,6 +138,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  DemoEventHandlingRoute: DemoEventHandlingRoute,
   DemoTableRoute: DemoTableRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
 }
